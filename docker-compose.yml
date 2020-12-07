@@ -1,0 +1,36 @@
+version: '3'
+services:
+  db:
+    image: "yobasystems/alpine-mariadb:10.4.13"
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - "db:/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: AvK0JrRl6Jwz6txnA7hDh9SAXcDbKxb
+      MYSQL_DATABASE: expidus
+      MYSQL_USER: expidus
+      MYSQL_PASSWORD: 8gpPQ9adBlIwLV6pJypBvf2HKMSba0O
+      MYSQL_ROOT_HOST: '%'
+    networks:
+      - servers
+  nginx:
+    image: "nginx:1-alpine"
+    volumes:
+      - "./configs/nginx.conf:/etc/nginx/nginx.conf:ro"
+    networks:
+      - servers
+    ports:
+      - "8080:80"
+  server-api:
+    image: "node:14-alpine"
+    command: scripts/entrypoint.sh
+    working_dir: "/usr/src/api"
+    depends_on:
+      - db
+    networks:
+      - servers
+    volumes:
+      - "./packages/api:/usr/src/api"
+networks:
+  servers:
+    name: servers

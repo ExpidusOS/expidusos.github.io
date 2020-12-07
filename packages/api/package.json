@@ -1,0 +1,28 @@
+{
+  "name": "@expdius/api",
+  "private": true,
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/server.bundle.js",
+  "scripts": {
+    "build": "webpack",
+		"watch": "webpack --watch",
+		"start": "node dist/server.bundle.js"
+  },
+  "author": "Tristan Ross",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@types/express": "^4.17.9",
+    "express": "^4.17.1",
+    "ts-loader": "^8.0.11",
+    "typescript": "^4.1.2",
+    "webpack": "^5.10.0",
+    "webpack-cli": "^4.2.0",
+    "webpack-node-externals": "^2.5.2",
+    "winston": "^3.3.3"
+  },
+  "dependencies": {
+    "mariadb": "^2.5.2",
+    "sequelize": "^6.3.5"
+  }
+}
