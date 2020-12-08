@@ -1,21 +1,18 @@
 const webpack = require('webpack');
 const path = require('path');
-const nodeExternals = require('webpack-node-externals');
-const NodemonPlugin = require('nodemon-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 const mode = process.env.NODE_ENV || 'development';
 
 module.exports = {
-	entry: path.resolve(__dirname, 'src', 'index.ts'),
+	entry: {
+		plugin: path.resolve(__dirname, 'plugin.ts')
+	},
 	mode,
-	target: 'async-node',
 	output: {
 		path: path.resolve(__dirname, 'dist'),
-		filename: 'server.bundle.js'
+		filename: '[name].bundle.js'
 	},
-	externals: [nodeExternals({
-		allowlist: ['winston', 'express']
-	})],
 	resolve: {
 		extensions: ['.tsx', '.ts', '.js']
 	},
@@ -23,13 +20,21 @@ module.exports = {
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': `"${mode}"`
 		}),
-		new NodemonPlugin()
+		new VueLoaderPlugin()
 	],
 	module: {
 		rules: [
 			{
 				test: /\.tsx?$/,
-				use: 'ts-loader',
+				loader: 'ts-loader',
+				options: {
+					appendTsSuffixTo: [/\.vue$/]
+				},
+				exclude: /node_modules/,
+			},
+			{
+				test: /\.vue?$/,
+				use: 'vue-loader',
 				exclude: /node_modules/,
 			}
 		]

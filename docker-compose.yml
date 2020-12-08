@@ -13,15 +13,7 @@ services:
       MYSQL_ROOT_HOST: '%'
     networks:
       - servers
-  nginx:
-    image: "nginx:1-alpine"
-    volumes:
-      - "./configs/nginx.conf:/etc/nginx/nginx.conf:ro"
-    networks:
-      - servers
-    ports:
-      - "8080:80"
-  server-api:
+  server_api:
     image: "node:14-alpine"
     command: scripts/entrypoint.sh
     working_dir: "/usr/src/api"
@@ -29,8 +21,37 @@ services:
       - db
     networks:
       - servers
+    environment:
+      NODE_ENV: "${NODE_ENV:-production}"
     volumes:
       - "./packages/api:/usr/src/api"
+      - "./packages/common:/usr/src/common"
+  server_www:
+    build:
+      context: .
+      dockerfile: packages/common/Dockerfile
+    command: scripts/entrypoint.sh
+    working_dir: "/usr/src/www"
+    networks:
+      - servers
+    environment:
+      NODE_ENV: "${NODE_ENV:-production}"
+    volumes:
+      - "./packages/www:/usr/src/www"
+      - "./packages/common:/usr/src/common"
+  nginx:
+    image: "nginx:1-alpine"
+    volumes:
+      - "./configs/nginx.conf.d:/etc/nginx/conf.d:ro"
+    depends_on:
+      - server_api
+      - server_www
+    networks:
+      - servers
+    ports:
+      - "8080:80"
 networks:
   servers:
     name: servers
+volumes:
+  db:

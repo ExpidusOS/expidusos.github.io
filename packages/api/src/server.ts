@@ -9,15 +9,20 @@ export default class Server {
 
 	constructor() {
 		this.app = express()
-		this.db = new Sequelize('mariadb://expidus:8gpPQ9adBlIwLV6pJypBvf2HKMSba0O@db:5432/expidus')
+		this.db = new Sequelize('mariadb://expidus:8gpPQ9adBlIwLV6pJypBvf2HKMSba0O@db/expidus')
 		this.logger = winston.createLogger({
-			level: 'debug',
+			level: process.env.NODE_ENV == 'development' ? 'debug' : 'info',
 			format: winston.format.combine(
 				winston.format.colorize(),
 				winston.format.splat(),
 				winston.format.simple()
 			),
 			transports: [ new winston.transports.Console() ]
+		})
+
+		this.app.use((req, res, next) => {
+			this.logger.debug(`receving request from ${req.protocol}://${req.hostname}${req.originalUrl} (${req.method})`)
+			next()
 		})
 	}
 
@@ -27,7 +32,7 @@ export default class Server {
 			this.logger.info('start() - connecting to database')
 			this.db.authenticate().then(() => {
 				this.logger.info('start() - connected to database sucessfully')
-				this.app.listen(80, () => {
+				this.app.listen(3000, () => {
 					this.logger.debug('start() - server is online')
 					resolve(this)
 				})
