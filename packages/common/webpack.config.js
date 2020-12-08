@@ -9,6 +9,7 @@ module.exports = {
 		plugin: path.resolve(__dirname, 'plugin.ts')
 	},
 	mode,
+	target: 'node',
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: '[name].bundle.js'
