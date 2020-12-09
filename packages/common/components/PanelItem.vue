@@ -1,6 +1,6 @@
 <template>
 	<v-list-item v-if="list == true" @click="handleClick">
-		<a class="white--text" v-if="url != null" :href="url">
+		<a class="text--primary" v-if="url != null" :href="url">
 			<v-list-item-icon v-if="icon">
 				<v-icon>{{ icon }}</v-icon>
 			</v-list-item-icon>
@@ -14,7 +14,7 @@
 		</div>
 	</v-list-item>
 	<v-btn v-else-if="subitems == null || subitems.length == 0" :text="title != null" :icon="icon != null" @click="handleClick">
-		<a class="white--text" v-if="url != null" :href="url">
+		<a class="text--primary" v-if="url != null" :href="url">
 			<v-icon v-if="icon != null">{{ icon }}</v-icon>
 			<span v-if="title">{{ title }}</span>
 		</a>
