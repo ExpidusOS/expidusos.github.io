@@ -22,6 +22,7 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
+		'~/plugins/theme.client.js'
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -50,16 +51,27 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: false,
+      dark: true,
       themes: {
+				light: {
+					anchor: '#7aa2f7',
+					primary: '#a9b1d6',
+					accent: '#32344a',
+					secondary: '#24283b',
+					info: '#e0af68',
+					warning: '#ff9e64',
+					error: '#f7768e',
+					success: '#9ece6a'
+				},
         dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3
+					anchor: '#7aa2f7',
+          primary: '#1a1b26',
+          accent: '#32344a',
+          secondary: '#a9b1d6',
+          info: '#e0af68',
+          warning: '#ff9e64',
+          error: '#f7768e',
+          success: '#9ece6a'
         }
       }
     }
