@@ -1,4 +1,4 @@
-import colors from 'vuetify/es5/util/colors'
+import { Tokyonight, Tokyoday } from '@expidus/common/colors'
 
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
@@ -53,26 +53,8 @@ export default {
     theme: {
       dark: true,
       themes: {
-				light: {
-					anchor: '#7aa2f7',
-					primary: '#a9b1d6',
-					accent: '#32344a',
-					secondary: '#24283b',
-					info: '#e0af68',
-					warning: '#ff9e64',
-					error: '#f7768e',
-					success: '#9ece6a'
-				},
-        dark: {
-					anchor: '#7aa2f7',
-          primary: '#1a1b26',
-          accent: '#32344a',
-          secondary: '#a9b1d6',
-          info: '#e0af68',
-          warning: '#ff9e64',
-          error: '#f7768e',
-          success: '#9ece6a'
-        }
+				light: Tokyoday,
+        dark: Tokyonight
       }
     }
   },

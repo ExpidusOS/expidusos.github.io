@@ -5,7 +5,7 @@
 			<slot name="before-spacer-desktop" />
 			<slot name="before-spacer" />
 			<v-spacer />
-			<PanelItem v-for="(item, index) in items" :key="index" v-bind="item" :title="null" />
+			<PanelItem v-for="(item, index) in items" v-if="item.icon != null" :key="index" v-bind="item" :title="null" />
 			<slot />
 			<slot name="desktop" />
 			<slot name="after-spacer" />
@@ -22,7 +22,7 @@
 		</v-app-bar>
 		<v-navigation-drawer v-model="drawer" absolute temporary>
 			<v-list>
-				<PanelItem v-for="(item, index) in items" :key="index" v-bind="item" :list="true" />
+				<PanelItem v-for="(item, index) in items" v-if="item.title != null" :key="index" v-bind="item" :list="true" />
 				<slot />
 				<slot name="mobile" />
 			</v-list>

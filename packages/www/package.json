@@ -17,6 +17,7 @@
     "core-js": "^3.6.5",
     "js-cookie": "^2.2.1",
     "nuxt": "^2.14.6",
+    "strftime": "^0.10.0",
     "vue-property-decorator": "^9.1.2"
   },
   "devDependencies": {
