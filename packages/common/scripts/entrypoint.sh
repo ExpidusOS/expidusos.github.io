@@ -1,13 +1,13 @@
 #!/usr/bin/env sh
 
-npm install --silent
+NODE_ENV="development" npm install --silent
 
 if [ -z "$NODE_ENV" ]; then
 	export NODE_ENV="development"
 fi
 
 if [ -d "/usr/src/common" ]; then
-	(cd /usr/src/common; npm run build)
+	(cd /usr/src/common; NODE_ENV="development" npm install --silent; npm run build)
 fi
 
 if [ "$NODE_ENV" == "production" ]; then

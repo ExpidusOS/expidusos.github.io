@@ -8,7 +8,7 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
+      { hid: 'description', name: 'description', content: 'A private and secure operating system for mobile and desktop devices.' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -41,8 +41,17 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa',
+    '@nuxtjs/pwa'
   ],
+
+	pwa: {
+		meta: {
+			name: 'ExpidusOS',
+			ogTitle: 'ExpidusOS',
+			ogSiteName: 'ExpidusOS',
+			description: 'A private and secure operating system for mobile and desktop devices.'
+		}
+	},
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},

@@ -31,6 +31,12 @@
 </template>
 <script>
 import PanelItem from './PanelItem.vue'
+import VAppBar from 'vuetify/es5/components/VAppBar/VAppBar.js'
+import VAppBarNavIcon from 'vuetify/es5/components/VAppBar/VAppBarNavIcon.js'
+import VList from 'vuetify/es5/components/VList/VList.js'
+import VNavigationDrawer from 'vuetify/es5/components/VNavigationDrawer/VNavigationDrawer.js'
+import VSpacer from 'vuetify/es5/components/VGrid/VSpacer.js'
+import { VToolbarTitle } from 'vuetify/es5/components/VToolbar/index.js'
 
 export default {
 	name: 'Panel',
@@ -46,7 +52,13 @@ export default {
 		}
 	},
 	components: {
-		PanelItem
+		PanelItem,
+		VAppBar,
+		VAppBarNavIcon,
+		VList,
+		VNavigationDrawer,
+		VSpacer,
+		VToolbarTitle
 	}
 }
 </script>

@@ -2,6 +2,9 @@
 </template>
 <script>
 export default {
-	layout: 'demo'
+	layout: 'demo',
+	head() {
+		return { title: 'Demo' }
+	}
 }
 </script>
