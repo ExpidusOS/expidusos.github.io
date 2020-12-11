@@ -49,6 +49,9 @@ export default {
 			name: 'ExpidusOS',
 			ogTitle: 'ExpidusOS',
 			ogSiteName: 'ExpidusOS',
+			ogHost: 'expidusos.com',
+			ogImage: 'http://expidusos.com/image.png',
+			ogUrl: 'http://expidusos.com',
 			description: 'A private and secure operating system for mobile and desktop devices.'
 		}
 	},
