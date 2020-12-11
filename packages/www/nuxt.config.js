@@ -41,8 +41,19 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+		'@nuxtjs/sitemap' // Always last
   ],
+
+	sitemap: {
+		hostname: 'http://expidusos.com',
+		gzip: true,
+		routes: [
+			'/',
+			'/download',
+			'/demo'
+		]
+	},
 
 	pwa: {
 		meta: {
