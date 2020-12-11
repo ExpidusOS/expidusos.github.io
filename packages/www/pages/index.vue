@@ -21,9 +21,6 @@
 						<v-carousel-item>
 							<v-img contain :src="require('~/assets/screenshot-1.png')" />
 						</v-carousel-item>
-						<v-carousel-item>
-							<v-img contain :src="require('~/assets/screenshot-2.png')" />
-						</v-carousel-item>
 					</v-carousel>
 				</v-card>
 			</v-col>

@@ -49,7 +49,7 @@ services:
     networks:
       - servers
     ports:
-      - "8080:80"
+      - "80:80"
 networks:
   servers:
     name: servers
