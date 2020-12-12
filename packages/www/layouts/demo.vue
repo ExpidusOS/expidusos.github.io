@@ -175,8 +175,8 @@ export default {
 			}
 
 			this.activeApps[0].data.position = {
-				x: this.lastPointer.x + delta.x,
-				y: this.lastPointer.y + delta.y
+				x: this.activeApps[0].data.lastPosition.x + delta.x,
+				y: this.activeApps[0].data.lastPosition.y + delta.y
 			}
 		},
 		unfocusAll() {
