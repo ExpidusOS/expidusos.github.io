@@ -3,7 +3,7 @@
 		<v-card flat tile width="100%">
 			<v-row justify="center" no-gutters>
 				<v-btn v-for="(link, index) in links" :key="index" text rounded class="my-2">
-					<NuxtLink :to="link.url">{{ link.title }}</NuxtLink>
+					<a :href="link.url">{{ link.title }}</a>
 				</v-btn>
 			</v-row>
 			<v-container class="pl-auto" @click="toggleTheme">
