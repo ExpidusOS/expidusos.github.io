@@ -35,7 +35,7 @@
 			<v-col cols="12" sm="6" md="6" ld="6" xl="6">
 				<v-card elevation="2">
 					<v-card-title>Secure</v-card-title>
-					<v-card-text>Shipped with AppArmor, it restricts applications to prevent them from "going rouge." This reduced the chance of getting infected with malware.</v-card-text>
+					<v-card-text>Shipped with AppArmor, it restricts applications to prevent them from "going rogue." This reduced the chance of getting infected with malware.</v-card-text>
 				</v-card>
 			</v-col>
 			<v-col cols="12" sm="6" md="6" ld="6" xl="6">
