@@ -30,7 +30,7 @@ $wgMetaNamespace = "ExpidusOS_Wiki";
 $wgScriptPath = "";
 
 ## The protocol and server name to use in fully-qualified URLs
-$wgServer = "http://wiki.expidusos.com";
+$wgServer = "https://wiki.expidusos.com";
 
 ## The URL path to static resources (images, scripts, etc.)
 $wgResourceBasePath = $wgScriptPath;
