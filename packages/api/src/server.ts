@@ -24,10 +24,6 @@ export default class Server {
 			this.logger.debug(`receving request from ${req.protocol}://${req.hostname}${req.originalUrl} (${req.method})`)
 			next()
 		})
-		
-		this.app.get('/.well-known/acme-challenge/bXBt9FbUU4XM2Q78dubmvltvs_axFnspWn-DBHkiDtw', (req, res) => {
-			res.send('bXBt9FbUU4XM2Q78dubmvltvs_axFnspWn-DBHkiDtw.VrZ7LJVJB03-1KZ-u64lLy2psx_fQoH8FKNZ8FZxphI')
-		})
 	}
 
 	start() {
