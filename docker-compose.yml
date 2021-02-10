@@ -4,7 +4,7 @@ services:
     image: "yobasystems/alpine-mariadb:10.4.13"
     command: --default-authentication-plugin=mysql_native_password
     volumes:
-      - "db:/var/lib/mysql"
+      - "./data/db:/var/lib/mysql"
     environment:
       MYSQL_ROOT_PASSWORD: AvK0JrRl6Jwz6txnA7hDh9SAXcDbKxb
       MYSQL_DATABASE: expidus
@@ -39,18 +39,28 @@ services:
     volumes:
       - "./packages/www:/usr/src/www"
       - "./packages/common:/usr/src/common"
+  server_wiki:
+    image: mediawiki
+    restart: always
+    links:
+      - db
+    networks:
+      - servers
+    volumes:
+      - "./data/wiki/images:/var/www/html/images"
+      - "./data/wiki/LocalSettings.php:/var/www/html/LocalSettings.php"
   nginx:
     image: "nginx:1-alpine"
     volumes:
       - "./configs/nginx.conf.d:/etc/nginx/conf.d:ro"
+      - "./configs/letsencrypt:/etc/letsencrypt:ro"
     depends_on:
       - server_api
       - server_www
+      - server_wiki
     networks:
       - servers
     ports:
       - "80:80"
 networks:
   servers:
-volumes:
-  db:
