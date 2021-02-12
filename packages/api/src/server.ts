@@ -1,6 +1,7 @@
 import express from 'express'
 import {Sequelize} from 'sequelize'
 import winston from 'winston'
+import { default as User, init as initUser } from './models/user'
 
 export default class Server {
 	public readonly app: express.Express
@@ -32,9 +33,17 @@ export default class Server {
 			this.logger.info('start() - connecting to database')
 			this.db.authenticate().then(() => {
 				this.logger.info('start() - connected to database sucessfully')
-				this.app.listen(3000, () => {
-					this.logger.debug('start() - server is online')
-					resolve(this)
+				initUser({ sequelize: this.db })
+				Promise.all([
+					User.sync({ force: false })
+				]).then(() => {
+					this.app.listen(3000, () => {
+						this.logger.debug('start() - server is online')
+						resolve(this)
+					})
+				}).catch((error) => {
+					this.logger.error('start() - failed to sync database: ' + error.toString())
+					reject(error)
 				})
 			}).catch((error) => {
 				this.logger.error('start() - failed to connect to database: ' + error.toString())
