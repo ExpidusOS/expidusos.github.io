@@ -1,5 +1,7 @@
-import { Sequelize, Model, DataTypes } from 'sequelize'
+import { Sequelize, Model, DataTypes, HasManyGetAssociationsMixin, HasManyAddAssociationMixin, HasManyHasAssociationMixin, HasManyCountAssociationsMixin, HasManyCreateAssociationMixin, Association } from 'sequelize'
 import bcrypt from 'bcrypt'
+import { default as AccessToken } from './accesstoken.ts'
+import { default as Publisher } from './publisher.ts'
 
 const SALT_ROUNDS = 2519
 
@@ -9,6 +11,25 @@ export default class User extends Model {
 	public password!: string;
 	public birthdate!: Date;
 	public email!: string;
+
+	public getPublishers!: HasManyGetAssociationsMixin<Publisher>;
+	public addPublisher!: HasManyAddAssociationMixin<Publisher, string>;
+	public hasPublisher!: HasManyHasAssociationMixin<Publisher, string>;
+	public countPublishers!: HasManyCountAssociationsMixin;
+	public createPublisher!: HasManyCreateAssociationMixin<Publisher>;
+	public readonly publishers?: Publisher[];
+
+	public getAccessTokens!: HasManyGetAssociationsMixin<AccessToken>;
+	public addAccessToken!: HasManyAddAssociationMixin<AccessToken, string>;
+	public hasAccessToken!: HasManyHasAssociationMixin<AccessToken, string>;
+	public countAccessTokens!: HasManyCountAssociationsMixin;
+	public createAccessToken!: HasManyCreateAssociationMixin<AccessToken>;
+	public readonly accessTokens?: AccessToken[];
+
+	public static associations: {
+		accessTokens: Association<User, AccessToken>;
+		publishers: Association<User, Publisher>;
+	}
 }
 
 export function init(opts: any): Model {

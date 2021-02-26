@@ -14,7 +14,7 @@ module.exports = {
 		filename: 'server.bundle.js'
 	},
 	externals: [nodeExternals({
-		allowlist: ['winston', 'express']
+		allowlist: ['winston', 'express', 'body-parser', 'express-oauth-server', 'jsonwebtoken']
 	})],
 	resolve: {
 		extensions: ['.tsx', '.ts', '.js']

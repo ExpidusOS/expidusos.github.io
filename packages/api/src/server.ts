@@ -1,12 +1,20 @@
+import bcrypt from 'bcrypt'
 import express from 'express'
+import bodyParser from 'body-parser'
+import OAuthServer from 'express-oauth-server'
 import {Sequelize} from 'sequelize'
 import winston from 'winston'
+
+import { default as AccessToken, init as initAccessToken } from './models/accesstoken'
+import { default as Client, init as initClient } from './models/client'
+import { default as Publisher, init as initPublisher } from './models/publisher'
 import { default as User, init as initUser } from './models/user'
 
 export default class Server {
 	public readonly app: express.Express
 	public readonly db: Sequelize
 	public readonly logger: winston.Logger
+	private readonly oauth: OAuthServer
 
 	constructor() {
 		this.app = express()
@@ -25,6 +33,97 @@ export default class Server {
 			this.logger.debug(`receving request from ${req.protocol}://${req.hostname}${req.originalUrl} (${req.method})`)
 			next()
 		})
+
+		this.oauth = new OAuthServer({
+			model: {
+				getAccessToken: async (token) => {
+					const access_token = await AccessToken.findOne({
+						where: { token }
+					})
+
+					const user = await User.findOne({
+						where: { uuid: access_token.get('uuid') }
+					})
+
+					const client = await Client.findOne({
+						where: { id: access_token.get('client_id') }
+					})
+
+					return {
+						accessToken: access_token.get('token'),
+						accessTokenExpiresAt: access_token.get('expires'),
+						scope: access_token.get('scope'),
+						client: {
+							id: client.id,
+							grants: client.grants
+						},
+						user
+					}
+				},
+				getClient: async (client_id, client_secret) => {
+					const client = await Client.findOne({
+						where: { id: client_id, secret: client_secret }
+					})
+
+					if (!client) throw new Error('Client does not exist')
+
+					return {
+						id: client.id,
+						grants: client.grants
+					}
+				},
+				getUser: async (username, pword) => {
+					const user = await User.findOne({
+						where: { username }
+					})
+
+					/* Check if user exists */
+					if (!user) {
+						return false
+					}
+
+					/* Compare password */
+					if (!bcrypt.compareSync(pword, user.get('password'))) {
+						return false
+					}
+
+					return user
+				},
+				saveToken: async (token, client, user) => {
+					const access_token = await AccessToken.create({
+						token: token.accessToken,
+						expires: token.accessTokenExpiresAt,
+						scope: token.scope,
+						uuid: user.uuid,
+						client_id: client.id
+					})
+
+					const the_client = await Client.findOne({
+						where: { id: client.id }
+					})
+					
+					return {
+						accessToken: access_token.get('token'),
+						accessTokenExpiresAt: access_token.get('expires'),
+						scope: access_token.get('scope'),
+						client: {
+							id: the_client.id,
+							grants: the_client.grants
+						},
+						user: (await User.findOne({ where: { uuid: client.id } })) as object
+					}
+				},
+				verifyScope: async (token, scope) => {
+					const access_token = await AccessToken.findOne({
+						where: { token }
+					})
+					if (!access_token) throw new Error('Access token does not exist')
+					return access_token.scope == scope
+				}
+			}
+		})
+		this.app.use(bodyParser.json())
+		this.app.use(bodyParser.urlencoded({ extended: false }))
 	}
 
 	start() {
@@ -33,18 +132,37 @@ export default class Server {
 			this.logger.info('start() - connecting to database')
 			this.db.authenticate().then(() => {
 				this.logger.info('start() - connected to database sucessfully')
-				initUser({ sequelize: this.db })
-				Promise.all([
-					User.sync({ force: false })
-				]).then(() => {
-					this.app.listen(3000, () => {
-						this.logger.debug('start() - server is online')
-						resolve(this)
-					})
-				}).catch((error) => {
-					this.logger.error('start() - failed to sync database: ' + error.toString())
-					reject(error)
+
+				initAccessToken({ sequelize: this.db, tableName: 'accessTokens' })
+				initClient({ sequelize: this.db, tableName: 'clients' })
+				initPublisher({ sequelize: this.db, tableName: 'publishers' })
+				initUser({ sequelize: this.db, tableName: 'users' })
+
+				User.hasMany(AccessToken, {
+					sourceKey: 'uuid',
+					foreignKey: 'uuid',
+					as: 'accessToken'
 				})
+
+				User.hasMany(Publisher, {
+					sourceKey: 'uuid',
+					foreignKey: 'owner_uuid',
+					as: 'publishers'
+				})
+
+				const force = false
+				User.sync({ force }).then(() => Publisher.sync({ force }))
+					.then(() => AccessToken.sync({ force }))
+					.then(() => Client.sync({ force }))
+					.then(() => {	
+						this.app.listen(3000, () => {
+							this.logger.debug('start() - server is online')
+							resolve(this)
+						})
+					}).catch((error) => {
+						this.logger.error('start() - failed to sync database: ' + error.toString())
+						reject(error)
+					})
 			}).catch((error) => {
 				this.logger.error('start() - failed to connect to database: ' + error.toString())
 				reject(error)
