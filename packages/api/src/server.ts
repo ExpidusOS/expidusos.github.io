@@ -124,6 +124,43 @@ export default class Server {
 		})
 		this.app.use(bodyParser.json())
 		this.app.use(bodyParser.urlencoded({ extended: false }))
+
+		this.app.post('/v1/user/auth', this.oauth.authenticate())
+		this.app.post('/v1/user/token', this.oauth.token())
+
+		this.app.post('/v1/user/register', (req, res) => {
+			const { username, password, birthdate, email } = req.body;
+			if (!username) {
+				res.json({ error: 'Missing username' })
+				return;
+			}
+			if (!password) {
+				res.json({ error: 'Missing password' })
+				return;
+			}
+			if (!birthdate) {
+				res.json({ error: 'Missing birthdate' })
+				return;
+			}
+			if (!email) {
+				res.json({ error: 'Missing email' })
+				return;
+			}
+			User.findOne({
+				where: { username }
+			}).then((user) => {
+				if (user) throw new Error('User already exists')
+				return User.create({
+					username,
+					password,
+					birthdate,
+					email
+				})
+			}).then((user: User) => res.json({ uuid: user.uuid }))
+			.catch((err: Error) => {
+				res.json({ name: err.name, error: err.message })
+			})
+		})
 	}
 
 	start() {
