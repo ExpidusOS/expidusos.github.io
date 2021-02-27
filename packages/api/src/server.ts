@@ -8,6 +8,7 @@ import winston from 'winston'
 import { default as AccessToken, init as initAccessToken } from './models/accesstoken'
 import { default as Client, init as initClient } from './models/client'
 import { default as Publisher, init as initPublisher } from './models/publisher'
+import { default as Staff, init as initStaff } from './models/staff'
 import { default as User, init as initUser } from './models/user'
 
 export default class Server {
@@ -173,6 +174,7 @@ export default class Server {
 				initAccessToken({ sequelize: this.db, tableName: 'accessTokens' })
 				initClient({ sequelize: this.db, tableName: 'clients' })
 				initPublisher({ sequelize: this.db, tableName: 'publishers' })
+				initStaff({ sequelize: this.db, tableName: 'staff' })
 				initUser({ sequelize: this.db, tableName: 'users' })
 
 				User.hasMany(AccessToken, {
@@ -191,6 +193,7 @@ export default class Server {
 				User.sync({ force }).then(() => Publisher.sync({ force }))
 					.then(() => AccessToken.sync({ force }))
 					.then(() => Client.sync({ force }))
+					.then(() => Staff.sync({ force }))
 					.then(() => {	
 						this.app.listen(3000, () => {
 							this.logger.debug('start() - server is online')
