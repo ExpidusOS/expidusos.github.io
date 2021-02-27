@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 import { default as AccessToken } from './accesstoken.ts'
 import { default as Publisher } from './publisher.ts'
 
-const SALT_ROUNDS = 234
+const SALT_ROUNDS = 10
 
 export default class User extends Model {
 	public uuid!: string;
@@ -36,6 +36,7 @@ export function init(opts: any): Model {
 	return User.init({
 		uuid: {
 			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
 			allowNull: false,
 			primaryKey: true,
 			unique: true

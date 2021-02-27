@@ -156,7 +156,7 @@ export default class Server {
 					birthdate,
 					email
 				})
-			}).then((user: User) => res.json({ uuid: user.uuid }))
+			}).then((user: User) => res.json({ uuid: user.uuid, email: user.email, birthdate: user.birthdate }))
 			.catch((err: Error) => {
 				res.json({ name: err.name, error: err.message })
 			})
