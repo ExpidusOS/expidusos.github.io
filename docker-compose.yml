@@ -50,6 +50,8 @@ services:
       - servers
     environment:
       DB_PASSWORD: "${DB_PASSWORD:-nginx}"
+      UPGRADE_KEY: "${WIKI_UPGRADE_KEY:-nginx}"
+      SECRET_KEY: "${WIKI_SECRET_KEY:-nginx}"
     volumes:
       - "./data/wiki/images:/var/www/html/images"
       - "./data/wiki/LocalSettings.php:/var/www/html/LocalSettings.php"
