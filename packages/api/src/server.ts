@@ -11,6 +11,8 @@ import { default as Publisher, init as initPublisher } from './models/publisher'
 import { default as Staff, init as initStaff } from './models/staff'
 import { default as User, init as initUser } from './models/user'
 
+import genUserRouter from './http/routes/user'
+
 import OAuthModel from './oauth'
 
 export default class Server {
@@ -46,39 +48,7 @@ export default class Server {
 		this.app.post('/v1/user/auth', this.oauth.authenticate())
 		this.app.post('/v1/user/token', this.oauth.token())
 
-		this.app.post('/v1/user/register', (req, res) => {
-			const { username, password, birthdate, email } = req.body;
-			if (!username) {
-				res.json({ error: 'Missing username' })
-				return;
-			}
-			if (!password) {
-				res.json({ error: 'Missing password' })
-				return;
-			}
-			if (!birthdate) {
-				res.json({ error: 'Missing birthdate' })
-				return;
-			}
-			if (!email) {
-				res.json({ error: 'Missing email' })
-				return;
-			}
-			User.findOne({
-				where: { username }
-			}).then((user) => {
-				if (user) throw new Error('User already exists')
-				return User.create({
-					username,
-					password,
-					birthdate,
-					email
-				})
-			}).then((user: User) => res.json({ uuid: user.uuid, email: user.email, birthdate: user.birthdate }))
-			.catch((err: Error) => {
-				res.json({ name: err.name, error: err.message })
-			})
-		})
+		this.app.use('/v1/user', genUserRouter(this))
 	}
 
 	start() {
