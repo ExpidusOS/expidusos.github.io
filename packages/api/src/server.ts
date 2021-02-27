@@ -11,6 +11,8 @@ import { default as Publisher, init as initPublisher } from './models/publisher'
 import { default as Staff, init as initStaff } from './models/staff'
 import { default as User, init as initUser } from './models/user'
 
+import OAuthModel from './oauth'
+
 export default class Server {
 	public readonly app: express.Express
 	public readonly db: Sequelize
@@ -36,92 +38,7 @@ export default class Server {
 		})
 
 		this.oauth = new OAuthServer({
-			model: {
-				getAccessToken: async (token) => {
-					const access_token = await AccessToken.findOne({
-						where: { token }
-					})
-
-					const user = await User.findOne({
-						where: { uuid: access_token.get('uuid') }
-					})
-
-					const client = await Client.findOne({
-						where: { id: access_token.get('client_id') }
-					})
-
-					return {
-						accessToken: access_token.get('token'),
-						accessTokenExpiresAt: access_token.get('expires'),
-						scope: access_token.get('scope'),
-						client: {
-							id: client.id,
-							grants: client.grants
-						},
-						user
-					}
-				},
-				getClient: async (client_id, client_secret) => {
-					const client = await Client.findOne({
-						where: { id: client_id, secret: client_secret }
-					})
-
-					if (!client) throw new Error('Client does not exist')
-
-					return {
-						id: client.id,
-						grants: client.grants
-					}
-				},
-				getUser: async (username, pword) => {
-					const user = await User.findOne({
-						where: { username }
-					})
-
-					/* Check if user exists */
-					if (!user) {
-						return false
-					}
-
-					/* Compare password */
-					if (!bcrypt.compareSync(pword, user.get('password'))) {
-						return false
-					}
-
-					return user
-				},
-				saveToken: async (token, client, user) => {
-					const access_token = await AccessToken.create({
-						token: token.accessToken,
-						expires: token.accessTokenExpiresAt,
-						scope: token.scope,
-						uuid: user.uuid,
-						client_id: client.id
-					})
-
-					const the_client = await Client.findOne({
-						where: { id: client.id }
-					})
-					
-					return {
-						accessToken: access_token.get('token'),
-						accessTokenExpiresAt: access_token.get('expires'),
-						scope: access_token.get('scope'),
-						client: {
-							id: the_client.id,
-							grants: the_client.grants
-						},
-						user: (await User.findOne({ where: { uuid: client.id } })) as object
-					}
-				},
-				verifyScope: async (token, scope) => {
-					const access_token = await AccessToken.findOne({
-						where: { token }
-					})
-					if (!access_token) throw new Error('Access token does not exist')
-					return access_token.scope == scope
-				}
-			}
+			model: new OAuthModel(this)
 		})
 		this.app.use(bodyParser.json())
 		this.app.use(bodyParser.urlencoded({ extended: false }))
