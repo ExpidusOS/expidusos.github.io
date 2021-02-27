@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 import { default as AccessToken } from './accesstoken.ts'
 import { default as Publisher } from './publisher.ts'
 
-const SALT_ROUNDS = 2519
+const SALT_ROUNDS = 234
 
 export default class User extends Model {
 	public uuid!: string;
@@ -51,7 +51,7 @@ export function init(opts: any): Model {
 			set(value) {
 				const salt = bcrypt.genSaltSync(SALT_ROUNDS)
 				const hash = bcrypt.hashSync(value, salt)
-				this.setDataValue('password', salt)
+				this.setDataValue('password', hash)
 			}
 		},
 		birthdate: {
