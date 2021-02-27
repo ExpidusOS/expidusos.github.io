@@ -1,5 +1,3 @@
-import { ValidationError, ValidatorResult } from 'jsonschema'
-
 export class BaseMessage {
 	private data: any
 	private error: Error
@@ -14,17 +12,5 @@ export class BaseMessage {
 	toJSON() {
 		return this.error ? { error: { message: this.error.message, name: this.error.name }, type: 'error' }
 			: { data: this.data, type: this.type }
-	}
-}
-
-class ValidatorError extends Error {
-	constructor(error: ValidationError) {
-		super(error.toString())
-	}
-}
-
-export class ValidatorErrorMessage extends BaseMessage {
-	constructor(results: ValidatorResult) {
-		super(null, new ValidatorError(results.errors[0]))
 	}
 }

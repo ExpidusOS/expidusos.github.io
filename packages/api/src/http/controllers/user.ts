@@ -1,53 +1,37 @@
-import Server from '../../server'
 import { Request, Response, NextFunction } from 'express'
-import { validate } from 'jsonschema'
+import DIContainer from '../../providers/di'
+import User from '../../database/models/user'
+import { BaseMessage } from '../../message'
 
-import User from '../../models/user'
-import { BaseMessage, ValidatorErrorMessage } from '../../message'
-
-const schema = {
-	id: '/UserRegister',
-	type: 'object',
-	properties: {
-		username: { type: 'string', pattern: "[^\s]*", minLength: 5 },
-		password: { type: 'string', minLength: 8 },
-		email: { type: 'string', format: 'email' },
-		birthdate: { type: 'string', format: 'date' },
-	},
-	required: ['username', 'password', 'email', 'birthdate']
-}
-
-export default function(server: Server) {
+export default function(di: DIContainer) {
 	return {
-		register(req: Request, res: Response, next: NextFunction) {
-			const v = validate(req.body, schema)
-			if (!v.valid) {
-				res.status(422).json(new ValidatorErrorMessage(v).toJSON())
-				return;
-			}
-
-			User.findOne({
-				where: { username: v.instance.username }
-			}).then((user) => {
-				if (user !== null) {
-					throw new Error(`User \"${v.instance.username}\" already exists`)
-				}
-				return User.create({
-					username:	v.instance.username,
-					password: v.instance.password,
-					birthdate: v.instance.birthdate,
-					email: v.instance.email
+		async register(req: Request, res: Response, next: NextFunction) {
+			try {
+				const { username } = req.body
+				const user = await User.findOne({
+					where: { username }
 				})
-			}).then((user) => {
+
+				if (user !== null) {
+					throw new Error(`User \"${username}\" already exists`)
+				}
+
+				const createdUser = await User.create({
+					username,
+					password: req.body.password,
+					birthdate: req.body.birthdate,
+					email: req.body.email
+				})
+
 				res.json(new BaseMessage({
-					username: user.username,
-					uuid: user.uuid,
-					email: user.email,
-					birthdate: user.birthdate
+					username: createdUser.username,
+					uuid: createdUser.uuid,
+					email: createdUser.email,
+					birthdate: createdUser.birthdate
 				}, 'register'))
-			}).catch((error: Error) => {
-				res.status(422).json(new BaseMessage(null, error).toJSON())
-			})
+			} catch (e) {
+				next(e)
+			}
 		}
 	}
 }
