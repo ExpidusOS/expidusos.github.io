@@ -6,10 +6,10 @@ services:
     volumes:
       - "./data/db:/var/lib/mysql"
     environment:
-      MYSQL_ROOT_PASSWORD: AvK0JrRl6Jwz6txnA7hDh9SAXcDbKxb
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD:-app}"
       MYSQL_DATABASE: expidus
       MYSQL_USER: expidus
-      MYSQL_PASSWORD: 8gpPQ9adBlIwLV6pJypBvf2HKMSba0O
+      MYSQL_PASSWORD: "${DB_PASSWORD:-app}"
       MYSQL_ROOT_HOST: '%'
     networks:
       - servers
@@ -23,6 +23,7 @@ services:
       - servers
     environment:
       NODE_ENV: "${NODE_ENV:-production}"
+      DB_PASSWORD: "${DB_PASSWORD:-app}"
     volumes:
       - "./packages/api:/usr/src/api"
       - "./packages/common:/usr/src/common"
@@ -36,6 +37,7 @@ services:
       - servers
     environment:
       NODE_ENV: "${NODE_ENV:-production}"
+      DB_PASSWORD: "${DB_PASSWORD:-app}"
     volumes:
       - "./packages/www:/usr/src/www"
       - "./packages/common:/usr/src/common"
@@ -46,6 +48,8 @@ services:
       - db
     networks:
       - servers
+    environment:
+      DB_PASSWORD: "${DB_PASSWORD:-app}"
     volumes:
       - "./data/wiki/images:/var/www/html/images"
       - "./data/wiki/LocalSettings.php:/var/www/html/LocalSettings.php"
@@ -63,5 +67,8 @@ services:
     ports:
       - "80:80"
       - "443:443"
+  app:
+    env_file:
+      - ./.env
 networks:
   servers:

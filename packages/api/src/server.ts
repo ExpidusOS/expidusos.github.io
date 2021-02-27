@@ -23,7 +23,7 @@ export default class Server {
 
 	constructor() {
 		this.app = express()
-		this.db = new Sequelize('mariadb://expidus:8gpPQ9adBlIwLV6pJypBvf2HKMSba0O@db/expidus')
+		this.db = new Sequelize(`mariadb://expidus:${process.env.DB_PASSWORD}@db/expidus`)
 		this.logger = winston.createLogger({
 			level: process.env.NODE_ENV == 'development' ? 'debug' : 'info',
 			format: winston.format.combine(
