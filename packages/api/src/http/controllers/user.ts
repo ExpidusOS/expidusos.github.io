@@ -9,10 +9,10 @@ const schema = {
 	id: '/UserRegister',
 	type: 'object',
 	properties: {
-		username: { type: 'string' },
-		password: { type: 'string' },
-		email: { type: 'string' },
-		birthdate: { type: 'string' },
+		username: { type: 'string', pattern: "[^\s]*", minLength: 5 },
+		password: { type: 'string', minLength: 8 },
+		email: { type: 'string', format: 'email' },
+		birthdate: { type: 'string', format: 'date' },
 	},
 	required: ['username', 'password', 'email', 'birthdate']
 }
