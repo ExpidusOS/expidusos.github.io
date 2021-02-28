@@ -5,10 +5,10 @@ export interface HttpErrorJSON {
 	detail: string
 }
 
-export interface HttpValidationErrorJSON {
+export interface HttpErrorWithJSON {
 	status: number
 	detail: string
-	errors: ValidationError[]
+	errors: ValidationError[] | string[]
 }
 
 export class HttpError extends Error {
@@ -38,7 +38,26 @@ export class HttpValidationError extends HttpError {
 		this.errors = errors
 	}
 
-	public toJSON(): HttpValidationErrorJSON {
+	public toJSON(): HttpErrorWithJSON {
+		return {
+			status: this.status,
+			detail: this.detail,
+			errors: this.errors
+		}
+	}
+}
+
+export class HttpBadRequestError extends HttpError {
+	status = 400
+	detail = 'Bad request'
+	errors: string[]
+
+	constructor(message: string) {
+		super('Bad request')
+		this.errors = [message]
+	}
+
+	public toJSON(): HttpErrorWithJSON {
 		return {
 			status: this.status,
 			detail: this.detail,

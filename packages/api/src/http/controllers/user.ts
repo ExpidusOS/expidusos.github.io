@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import DIContainer from '../../providers/di'
 import User from '../../database/models/user'
 import { BaseMessage } from '../../message'
+import { HttpBadRequestError } from '../exceptions'
 
 export default function(di: DIContainer) {
 	return {
@@ -13,7 +14,7 @@ export default function(di: DIContainer) {
 				})
 
 				if (user !== null) {
-					throw new Error(`User \"${username}\" already exists`)
+					throw new HttpBadRequestError(`User \"${username}\" already exists`)
 				}
 
 				const createdUser = await User.create({

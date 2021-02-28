@@ -1,7 +1,7 @@
 export class BaseMessage {
 	private data: any
-	private error: Error
-	private type: string
+	private error?: Error
+	private type: string = ''
 
 	constructor(data: any, errorOrType: Error | string) {
 		this.data = data

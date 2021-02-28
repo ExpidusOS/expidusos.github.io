@@ -14,7 +14,10 @@ export const models = {
 	User
 }
 
-export const sequelize = new Sequelize(config.database.connection)
+export const sequelize = new Sequelize(
+	config.database.connection,
+	config.database.options
+)
 
 Object
 	.values(models)
