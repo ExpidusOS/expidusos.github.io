@@ -4,6 +4,7 @@ import Client from './models/client'
 import Publisher from './models/publisher'
 import Staff from './models/staff'
 import User from './models/user'
+import config from '../config'
 
 export const models = {
 	AccessToken,
@@ -15,10 +16,10 @@ export const models = {
 
 const uri = process.env.NODE_ENV === 'test'
 	? 'sqlite::memory'
-	: `mariadb://expidus:${process.env.DB_PASSWORD}@db/expidus`
+	: config.database.connection
 
 export const sequelize = new Sequelize(uri, {
-	logging: process.env.NODE_ENV !== 'test'
+	logging: config.env !== 'test'
 })
 
 Object

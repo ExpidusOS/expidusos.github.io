@@ -4,12 +4,18 @@ import OAuth2Server from 'oauth2-server'
 import AccessToken from './database/models/accesstoken'
 import Client from './database/models/client'
 import User from './database/models/user'
+import DIContainer from './providers/di'
 
 export default class OAuthModel implements OAuth2Server.PasswordModel {
-	constructor() {
+	private di: DIContainer
+
+	constructor(di: DIContainer) {
+		this.di = di
 	}
 
 	async getAccessToken(token: string) {
+		this.di.logger.debug(`Receiving access token: ${token}`)
+
 		const access_token = await AccessToken.findOne({
 			where: { token }
 		})
@@ -41,8 +47,11 @@ export default class OAuthModel implements OAuth2Server.PasswordModel {
 	}
 
 	async getClient(client_id: string, client_secret: string) {
+		if (isNaN(parseInt(client_id))) throw new Error('Client ID is not a number')
+		this.di.logger.debug(`Getting client: ${client_id} ${(client_secret || '').split('').map(() => '*').join('')}`)
+
 		const client = await Client.findOne({
-			where: { id: client_id, secret: client_secret }
+			where: { id: parseInt(client_id), secret: client_secret }
 		})
 
 		if (!client) throw new Error('Client does not exist')
@@ -54,6 +63,7 @@ export default class OAuthModel implements OAuth2Server.PasswordModel {
 	}
 
 	async getUser(username: string, pword: string) {
+		this.di.logger.debug(`Getting user: ${username} ${pword.split('').map(() => '*').join('')}`)
 		const user = await User.findOne({
 			where: { username }
 		})

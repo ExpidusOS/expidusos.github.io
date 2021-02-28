@@ -25,7 +25,7 @@ export default class Client extends Model {
 					this.setDataValue('grants', value.join(','))
 				},
 				get() {
-					return (this.getDataValue('grants') || []).split(',')
+					return (this.getDataValue('grants') || '').split(',')
 				}
 			}
 		}, {
