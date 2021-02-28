@@ -1,18 +1,12 @@
 import bcrypt from 'bcrypt'
 import { Sequelize } from 'sequelize'
 import OAuth2Server from 'oauth2-server'
-
-import AccessToken from './models/accesstoken'
-import Client from './models/client'
-import User from './models/user'
-
-import Server from './server'
+import AccessToken from './database/models/accesstoken'
+import Client from './database/models/client'
+import User from './database/models/user'
 
 export default class OAuthModel implements OAuth2Server.PasswordModel {
-	private server: Server
-
-	constructor(server: Server) {
-		this.server = server
+	constructor() {
 	}
 
 	async getAccessToken(token: string) {
@@ -76,7 +70,7 @@ export default class OAuthModel implements OAuth2Server.PasswordModel {
 		const the_client = await Client.findOne({
 			where: { id: client.id }
 		})
-					
+
 		return {
 			accessToken: access_token.get('token'),
 			accessTokenExpiresAt: access_token.get('expires'),
