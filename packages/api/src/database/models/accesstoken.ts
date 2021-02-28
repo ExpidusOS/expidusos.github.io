@@ -1,11 +1,11 @@
 import { Sequelize, Model, DataTypes } from 'sequelize'
 
 export default class AccessToken extends Model {
-	public token!: string;
-	public uuid!: string;
-	public expires!: Date;
-	public scope!: string;
-	public client_id!: string;
+	public token!: string
+	public uuid!: string
+	public expires!: Date
+	public scope!: string
+	public client_id!: string
 
 	static initializeModel(sequelize: Sequelize) {
 		AccessToken.init({

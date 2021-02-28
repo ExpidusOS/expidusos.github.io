@@ -4,10 +4,10 @@ import bcrypt from 'bcrypt'
 const SALT_ROUNDS = 10
 
 export default class Staff extends Model {
-	public id!: number;
-	public uuid!: string;
-	public password!: string;
-	public role!: string;
+	public id!: number
+	public uuid!: string
+	public password!: string
+	public role!: string
 
 	static initializeModel(sequelize: Sequelize) {
 		Staff.init({

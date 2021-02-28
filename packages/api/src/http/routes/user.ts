@@ -7,7 +7,7 @@ const schema = {
 	id: '/UserRegister',
 	type: 'object',
 	properties: {
-		username: { type: 'string', pattern: "[^\s]*", minLength: 5 },
+		username: { type: 'string', pattern: '[^\\s]+', minLength: 5 },
 		password: { type: 'string', minLength: 8 },
 		email: { type: 'string', format: 'email' },
 		birthdate: { type: 'string', format: 'date' },
