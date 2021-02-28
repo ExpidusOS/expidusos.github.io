@@ -91,7 +91,7 @@ export default class OAuthModel implements OAuth2Server.PasswordModel {
 
 		if (!the_client) throw new Error('Invalid resource')
 
-		const tokenUser = await User.findOne({ where: { uuid: client.id } })
+		const tokenUser = await User.findOne({ where: { uuid: user.uuid } })
 
 		if (!tokenUser) throw new Error('Invalid resource')
 
