@@ -13,7 +13,13 @@ export const models = {
 	User
 }
 
-export const sequelize = new Sequelize(`mariadb://expidus:${process.env.DB_PASSWORD}@db/expidus`)
+const uri = process.env.NODE_ENV === 'test'
+	? 'sqlite::memory'
+	: `mariadb://expidus:${process.env.DB_PASSWORD}@db/expidus`
+
+export const sequelize = new Sequelize(uri, {
+	logging: process.env.NODE_ENV !== 'test'
+})
 
 Object
 	.values(models)
