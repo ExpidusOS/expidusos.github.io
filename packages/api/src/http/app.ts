@@ -8,20 +8,20 @@ import { sequelize } from '../database'
 import { notFoundHandler, errorHandler } from './middleware/error'
 
 const app = express()
+const di = new DIContainer(
+	app,
+	winston,
+	sequelize
+)
+
 const oauth = new OAuthServer({
-	model: new OAuthModel()
+	model: new OAuthModel(di)
 })
 
 app.use((req, res, next) => {
 	winston.debug(`receving request from ${req.protocol}://${req.hostname}${req.originalUrl} (${req.method})`)
 	next()
 })
-
-const di = new DIContainer(
-	app,
-	winston,
-	sequelize
-)
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
