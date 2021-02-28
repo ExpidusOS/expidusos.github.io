@@ -12,7 +12,12 @@ export default {
 	env,
 	production,
 	database: {
-		connection: `mariadb://expidus:${process.env.DB_PASSWORD}@db/expidus`
+		connection: env === 'test'
+			? 'sqlite::memory'
+			: `mariadb://expidus:${process.env.DB_PASSWORD}@db/expidus`,
+		options: {
+			logging: env !== 'test'
+		}
 	},
 	winston: {
 		level: logLevels[env]

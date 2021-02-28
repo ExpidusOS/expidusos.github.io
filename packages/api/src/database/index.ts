@@ -14,13 +14,10 @@ export const models = {
 	User
 }
 
-const uri = process.env.NODE_ENV === 'test'
-	? 'sqlite::memory'
-	: config.database.connection
-
-export const sequelize = new Sequelize(uri, {
-	logging: config.env !== 'test'
-})
+export const sequelize = new Sequelize(
+	config.database.connection,
+	config.database.options
+)
 
 Object
 	.values(models)
