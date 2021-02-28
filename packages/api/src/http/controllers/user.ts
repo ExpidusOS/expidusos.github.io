@@ -14,7 +14,7 @@ export default function(di: DIContainer) {
 				})
 
 				if (user !== null) {
-					throw new HttpBadRequestError(`User \"${username}\" already exists`)
+					throw new HttpBadRequestError(`User "${username}" already exists`)
 				}
 
 				const createdUser = await User.create({

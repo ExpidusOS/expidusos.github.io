@@ -6,25 +6,25 @@ import bcrypt from 'bcrypt'
 const SALT_ROUNDS = 10
 
 export default class User extends Model {
-	public uuid!: string;
-	public username!: string;
-	public password!: string;
-	public birthdate!: Date;
-	public email!: string;
+	public uuid!: string
+	public username!: string
+	public password!: string
+	public birthdate!: Date
+	public email!: string
 
-	public getPublishers!: HasManyGetAssociationsMixin<Publisher>;
-	public addPublisher!: HasManyAddAssociationMixin<Publisher, string>;
-	public hasPublisher!: HasManyHasAssociationMixin<Publisher, string>;
-	public countPublishers!: HasManyCountAssociationsMixin;
-	public createPublisher!: HasManyCreateAssociationMixin<Publisher>;
-	public readonly publishers?: Publisher[];
+	public getPublishers!: HasManyGetAssociationsMixin<Publisher>
+	public addPublisher!: HasManyAddAssociationMixin<Publisher, string>
+	public hasPublisher!: HasManyHasAssociationMixin<Publisher, string>
+	public countPublishers!: HasManyCountAssociationsMixin
+	public createPublisher!: HasManyCreateAssociationMixin<Publisher>
+	public readonly publishers?: Publisher[]
 
-	public getAccessTokens!: HasManyGetAssociationsMixin<AccessToken>;
-	public addAccessToken!: HasManyAddAssociationMixin<AccessToken, string>;
-	public hasAccessToken!: HasManyHasAssociationMixin<AccessToken, string>;
-	public countAccessTokens!: HasManyCountAssociationsMixin;
-	public createAccessToken!: HasManyCreateAssociationMixin<AccessToken>;
-	public readonly accessTokens?: AccessToken[];
+	public getAccessTokens!: HasManyGetAssociationsMixin<AccessToken>
+	public addAccessToken!: HasManyAddAssociationMixin<AccessToken, string>
+	public hasAccessToken!: HasManyHasAssociationMixin<AccessToken, string>
+	public countAccessTokens!: HasManyCountAssociationsMixin
+	public createAccessToken!: HasManyCreateAssociationMixin<AccessToken>
+	public readonly accessTokens?: AccessToken[]
 
 	public static associations: {
 		accessTokens: Association<User, AccessToken>;

@@ -1,13 +1,13 @@
 import { Sequelize, Model, DataTypes } from 'sequelize'
 
 export default class Publisher extends Model {
-	public uuid!: string;
-	public owner_uuid!: string;
-	public name!: string;
-	public email!: string;
-	public desc!: string;
-	public homepage!: string;
-	public trusted!: boolean;
+	public uuid!: string
+	public owner_uuid!: string
+	public name!: string
+	public email!: string
+	public desc!: string
+	public homepage!: string
+	public trusted!: boolean
 
 	static initializeModel(sequelize: Sequelize) {
 		Publisher.init({

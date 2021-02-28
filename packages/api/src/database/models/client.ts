@@ -1,9 +1,9 @@
 import { Sequelize, Model, DataTypes } from 'sequelize'
 
 export default class Client extends Model {
-	public id!: string;
-	public secret!: string;
-	public grants!: string[];
+	public id!: string
+	public secret!: string
+	public grants!: string[]
 
 	static initializeModel(sequelize: Sequelize) {
 		Client.init({
