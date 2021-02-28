@@ -1,12 +1,24 @@
 {
-	"compilerOptions": {
-		"outDir": "./dist/",
-		"moduleResolution": "node",
+  "compilerOptions": {
+    "lib": ["es2020"],
+    "module": "commonjs",
+    "target": "es6",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "resolveJsonModule": true,
 		"allowSyntheticDefaultImports": true,
-		"noImplicitAny": true,
-		"module": "es6",
-		"target": "es6",
-		"jsx": "react",
-		"allowJs": true
-	}
+    "sourceMap": true,
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "node_modules/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ]
 }

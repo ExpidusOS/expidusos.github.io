@@ -3,12 +3,11 @@
   "private": true,
   "version": "0.1.0",
   "description": "",
-  "main": "dist/server.bundle.js",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "webpack",
-    "watch": "webpack --watch",
-    "start": "node dist/server.bundle.js",
-    "dev": "webpack --watch"
+    "prod": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
   },
   "author": "Tristan Ross",
   "license": "UNLICENSED",
@@ -22,12 +21,8 @@
     "express-oauth-server": "^2.0.0",
     "jsonschema": "^1.4.0",
     "jsonwebtoken": "^8.5.1",
-    "nodemon-webpack-plugin": "^4.3.2",
-    "ts-loader": "^8.0.11",
+    "ts-node-dev": "^1.1.6",
     "typescript": "^4.1.2",
-    "webpack": "^5.10.0",
-    "webpack-cli": "^4.2.0",
-    "webpack-node-externals": "^2.5.2",
     "winston": "^3.3.3"
   },
   "dependencies": {
