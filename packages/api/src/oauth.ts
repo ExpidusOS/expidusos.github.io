@@ -14,13 +14,19 @@ export default class OAuthModel implements OAuth2Server.PasswordModel {
 			where: { token }
 		})
 
+		if (!access_token) throw new Error('Invalid resource')
+
 		const user = await User.findOne({
 			where: { uuid: access_token.get('uuid') }
 		})
 
+		if (!user) throw new Error('Invalid resource')
+
 		const client = await Client.findOne({
 			where: { id: access_token.get('client_id') }
 		})
+
+		if (!client) throw new Error('Invalid resource')
 
 		return {
 			accessToken: access_token.get('token'),
@@ -67,9 +73,17 @@ export default class OAuthModel implements OAuth2Server.PasswordModel {
 			client_id: client.id
 		})
 
+		if (!access_token) throw new Error('Invalid resource')
+
 		const the_client = await Client.findOne({
 			where: { id: client.id }
 		})
+
+		if (!the_client) throw new Error('Invalid resource')
+
+		const tokenUser = await User.findOne({ where: { uuid: client.id } })
+
+		if (!tokenUser) throw new Error('Invalid resource')
 
 		return {
 			accessToken: access_token.get('token'),
@@ -79,7 +93,7 @@ export default class OAuthModel implements OAuth2Server.PasswordModel {
 				id: the_client.id,
 				grants: the_client.grants
 			},
-			user: (await User.findOne({ where: { uuid: client.id } })).toJSON()
+			user: tokenUser.toJSON()
 		}
 	}
 
