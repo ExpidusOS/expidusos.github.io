@@ -13,7 +13,7 @@
 				</v-btn>
 			</v-container>
 			<v-card-text>
-				<v-icon>mdi-copyright</v-icon> {{ new Date().getFullYear() }} - ExpidusOS, developed by <a href="http://midstall.com">Midstall Software</a>.
+				Copyright <v-icon>mdi-copyright</v-icon> {{ new Date().getFullYear() }} <a href="https://midstall.com">Midstall Software</a>
 			</v-card-text>
 		</v-card>
 	</v-footer>
