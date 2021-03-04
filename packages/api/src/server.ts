@@ -15,12 +15,12 @@ export default class Server {
 		if (config.database.connection !== 'sqlite::memory') {
 			await waitOn({
 				resources: [
-					`tcp:${config.database.connection}:3306`
+					'tcp:db:3306'
 				]
 			})
 		}
 		await sequelize.authenticate()
-		await sequelize.sync({ force: true }) // TODO: Migrations
+		await sequelize.sync({ force: false }) // TODO: Migrations
 
 		winston.info('connected to database sucessfully')
 

@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.post('/v1/user/auth', oauth.authenticate())
 app.post('/v1/user/token', oauth.token())
-app.use('/v1/user', genUserRouter(di))
+app.use('/v1/user', genUserRouter(di, oauth))
 app.use(notFoundHandler)
 app.use(errorHandler)
 

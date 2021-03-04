@@ -47,11 +47,10 @@ export default class OAuthModel implements OAuth2Server.PasswordModel {
 	}
 
 	async getClient(client_id: string, client_secret: string) {
-		if (isNaN(parseInt(client_id))) throw new Error('Client ID is not a number')
 		this.di.logger.debug(`Getting client: ${client_id} ${(client_secret || '').split('').map(() => '*').join('')}`)
 
 		const client = await Client.findOne({
-			where: { id: parseInt(client_id), secret: client_secret }
+			where: { id: client_id, secret: client_secret }
 		})
 
 		if (!client) throw new Error('Client does not exist')
