@@ -9,6 +9,7 @@ export default class Client extends Model {
 		Client.init({
 			id: {
 				type: DataTypes.UUID,
+				defaultValue: DataTypes.UUIDV4,
 				allowNull: false,
 				primaryKey: true,
 				unique: true

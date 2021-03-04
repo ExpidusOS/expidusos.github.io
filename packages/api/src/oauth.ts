@@ -110,7 +110,7 @@ export default class OAuthModel implements OAuth2Server.PasswordModel {
 		const access_token = await AccessToken.findOne({
 			where: { token }
 		})
-		if (!access_token) throw new Error('Acess token does not exist')
+		if (!access_token) throw new Error('Access token does not exist')
 		return access_token.scope == scope
 	}
 }
