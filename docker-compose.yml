@@ -13,6 +13,7 @@ services:
       MYSQL_ROOT_HOST: '%'
     networks:
       - servers
+    restart: on-failure
   server_api:
     image: "node:14-alpine"
     command: scripts/entrypoint.sh
@@ -26,6 +27,21 @@ services:
     volumes:
       - "./packages/api:/usr/src/api"
       - "./packages/common:/usr/src/common"
+    restart: on-failure
+  server_account:
+    build:
+      context: .
+      dockerfile: packages/common/Dockerfile
+    command: scripts/entrypoint.sh
+    working_dir: "/usr/src/account"
+    networks:
+      - servers
+    environment:
+      NODE_ENV: "${NODE_ENV:-production}"
+    volumes:
+      - "./packages/account:/usr/src/account"
+      - "./packages/common:/usr/src/common"
+    restart: on-failure
   server_www:
     build:
       context: .
@@ -36,10 +52,10 @@ services:
       - servers
     environment:
       NODE_ENV: "${NODE_ENV:-production}"
-      DB_PASSWORD: "${DB_PASSWORD:-nginx}"
     volumes:
       - "./packages/www:/usr/src/www"
       - "./packages/common:/usr/src/common"
+    restart: on-failure
   server_wiki:
     image: mediawiki
     restart: always
@@ -54,6 +70,7 @@ services:
     volumes:
       - "./data/wiki/images:/var/www/html/images"
       - "./data/wiki/LocalSettings.php:/var/www/html/LocalSettings.php"
+    restart: on-failure
   nginx:
     image: "nginx:1-alpine"
     volumes:
@@ -61,6 +78,7 @@ services:
       - "./configs/letsencrypt:/etc/letsencrypt:ro"
     depends_on:
       - server_api
+      - server_account
       - server_www
       - server_wiki
     networks:
@@ -70,5 +88,6 @@ services:
       - "443:443"
     env_file:
       - ./.env
+    restart: on-failure
 networks:
   servers:
