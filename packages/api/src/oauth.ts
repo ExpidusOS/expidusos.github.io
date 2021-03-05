@@ -12,7 +12,7 @@ export default class OAuthModel implements OAuth2Server.PasswordModel {
 		this.di = di
 	}
 
-	async getAccessToken(token: string): OAuth2Server.Token {
+	async getAccessToken(token: string): Promise<OAuth2Server.Token> {
 		this.di.logger.debug(`Receiving access token: ${token}`)
 
 		const access_token = await AccessToken.findOne({
@@ -45,7 +45,7 @@ export default class OAuthModel implements OAuth2Server.PasswordModel {
 		}
 	}
 
-	async getClient(client_id: string, client_secret: string): OAuth2Server.Client {
+	async getClient(client_id: string, client_secret: string): Promise<OAuth2Server.Client> {
 		this.di.logger.debug(`Getting client: ${client_id} ${(client_secret || '').split('').map(() => '*').join('')}`)
 
 		const client = await Client.findOne({
@@ -60,7 +60,7 @@ export default class OAuthModel implements OAuth2Server.PasswordModel {
 		}
 	}
 
-	async getUser(username: string, pword: string): OAuth2Server.User {
+	async getUser(username: string, pword: string): Promise<OAuth2Server.User | OAuth2Server.Falsey> {
 		this.di.logger.debug(`Getting user: ${username} ${pword.split('').map(() => '*').join('')}`)
 		const user = await User.findOne({
 			where: { username }
@@ -72,7 +72,7 @@ export default class OAuthModel implements OAuth2Server.PasswordModel {
 		return user
 	}
 
-	async saveToken(token: OAuth2Server.Token, client: OAuth2Server.Client, user: OAuth2Server.User): OAuth2Server.Token {
+	async saveToken(token: OAuth2Server.Token, client: OAuth2Server.Client, user: OAuth2Server.User): Promise<OAuth2Server.Token> {
 		const access_token = await AccessToken.create({
 			token: token.accessToken,
 			expires: token.accessTokenExpiresAt,
@@ -105,7 +105,7 @@ export default class OAuthModel implements OAuth2Server.PasswordModel {
 		}
 	}
 
-	async verifyScope(token: OAuth2Server.Token, scope: string): boolean {
+	async verifyScope(token: OAuth2Server.Token, scope: string): Promise<boolean> {
 		const access_token = await AccessToken.findOne({
 			where: { token }
 		})
