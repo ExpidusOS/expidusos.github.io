@@ -9,8 +9,8 @@ export default class Publisher extends Model {
 	public homepage!: string
 	public trusted!: boolean
 
-	static initializeModel(sequelize: Sequelize) {
-		Publisher.init({
+	static initializeModel(sequelize: Sequelize): Model {
+		return Publisher.init({
 			uuid: {
 				type: DataTypes.UUID,
 				allowNull: false,

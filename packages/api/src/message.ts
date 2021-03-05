@@ -1,3 +1,12 @@
+interface BaseMessageInterface {
+	data?: any;
+	error?: {
+		message: string;
+		name: string;
+	};
+	type: string;
+}
+
 export class BaseMessage {
 	private data: any
 	private error?: Error
@@ -9,7 +18,7 @@ export class BaseMessage {
 		else this.type = errorOrType as string
 	}
 
-	toJSON() {
+	toJSON(): BaseMessageInterface {
 		return this.error ? { error: { message: this.error.message, name: this.error.name }, type: 'error' }
 			: { data: this.data, type: this.type }
 	}

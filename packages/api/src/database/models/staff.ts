@@ -9,8 +9,8 @@ export default class Staff extends Model {
 	public password!: string
 	public role!: string
 
-	static initializeModel(sequelize: Sequelize) {
-		Staff.init({
+	static initializeModel(sequelize: Sequelize): Model {
+		return Staff.init({
 			id: {
 				type: DataTypes.INTEGER,
 				allowNull: false,

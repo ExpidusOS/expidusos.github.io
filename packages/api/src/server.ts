@@ -5,9 +5,6 @@ import app from './http/app'
 import config from './config'
 
 export default class Server {
-	constructor() {
-	}
-
 	async start(): void {
 		winston.debug('beginning server bootup...')
 

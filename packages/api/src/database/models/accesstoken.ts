@@ -7,8 +7,8 @@ export default class AccessToken extends Model {
 	public scope!: string
 	public client_id!: string
 
-	static initializeModel(sequelize: Sequelize) {
-		AccessToken.init({
+	static initializeModel(sequelize: Sequelize): Model {
+		return AccessToken.init({
 			token: {
 				type: DataTypes.STRING,
 				allowNull: false,

@@ -5,8 +5,8 @@ export default class Client extends Model {
 	public secret!: string
 	public grants!: string[]
 
-	static initializeModel(sequelize: Sequelize) {
-		Client.init({
+	static initializeModel(sequelize: Sequelize): Model {
+		return Client.init({
 			id: {
 				type: DataTypes.UUID,
 				defaultValue: DataTypes.UUIDV4,

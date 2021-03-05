@@ -38,7 +38,7 @@ export default function(di: DIContainer) {
 		},
 		async info(req: Request, res: Response, next: NextFunction) {
 			try {
-				const access_token = AccessToken.findOne({
+				const access_token = await AccessToken.findOne({
 					where: { token: req.body.access_token }
 				})
 
@@ -50,11 +50,19 @@ export default function(di: DIContainer) {
 					where: { uuid: access_token.uuid }
 				})
 
+				if (user == null) {
+					throw new HttpBadRequestError('User does not exist')
+				}
+
 				const client = await Client.findOne({
 					where: { id: access_token.client_id }
 				})
 
-				const info = {
+				if (client == null) {
+					throw new HttpBadRequestError('Client does not exist')
+				}
+
+				const info: Record<string, any> = {
 					uuid: user.uuid,
 					username: user.username
 				}

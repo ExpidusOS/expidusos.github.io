@@ -31,8 +31,8 @@ export default class User extends Model {
 		publishers: Association<User, Publisher>;
 	}
 
-	static initializeModel(sequelize: Sequelize) {
-		User.init({
+	static initializeModel(sequelize: Sequelize): Model {
+		return User.init({
 			uuid: {
 				type: DataTypes.UUID,
 				defaultValue: DataTypes.UUIDV4,
