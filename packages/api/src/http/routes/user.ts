@@ -16,14 +16,6 @@ const schema_register = {
 	required: ['username', 'password', 'email', 'birthdate']
 }
 
-const schema_base = {
-	id: '/UserBase',
-	type: 'object',
-	properties: {
-		access_token: { type: 'string', required: true }
-	}
-}
-
 export default function(di: DIContainer, oauth: OAuthServer): Router {
 	const router = Router()
 	const controller = genController(di)
@@ -34,9 +26,8 @@ export default function(di: DIContainer, oauth: OAuthServer): Router {
 		controller.register
 	)
 
-	router.get(
+	router.post(
 		'/info',
-		validateBody(schema_base),
 		oauth.authorize(),
 		controller.info
 	)

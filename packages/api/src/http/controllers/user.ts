@@ -38,16 +38,8 @@ export default function(di: DIContainer) {
 		},
 		async info(req: Request, res: Response, next: NextFunction) {
 			try {
-				const access_token = await AccessToken.findOne({
-					where: { token: req.body.access_token }
-				})
-
-				if (access_token === null) {
-					throw new HttpBadRequestError(`Token ${access_token} does not exist`)
-				}
-
 				const user = await User.findOne({
-					where: { uuid: access_token.uuid }
+					where: { uuid: req.user.uuid }
 				})
 
 				if (user == null) {
