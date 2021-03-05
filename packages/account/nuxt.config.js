@@ -30,8 +30,8 @@ export default {
 				},
 				responseMode: 'query.jwt',
 				accessType: 'offline',
-				clientId: '0',
-				clientSecret: '0',
+				clientId: 'c083b285-2cbd-451a-9a14-cd580e55ec67',
+				clientSecret: '3D439605F0E42B00EEF0C784700C99CA',
 				responseType: 'code',
 				grantType: 'password',
 				scope: ['profile', 'profile:edit']

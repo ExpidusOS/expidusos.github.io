@@ -38,10 +38,16 @@ export default function(di: DIContainer) {
 		},
 		async info(req: Request, res: Response, next: NextFunction) {
 			try {
-				const user = await User.findOne({
-					where: { uuid: req.user.uuid }
+				const access_token = await AccessToken.findOne({
+					where: { token: res.locals.oauth.token.accessToken }
 				})
+				if (access_token == null) {
+					throw new HttpBadRequestError('Access token does not exist')
+				}
 
+				const user = await User.findOne({
+					where: { uuid: access_token.uuid }
+				})
 				if (user == null) {
 					throw new HttpBadRequestError('User does not exist')
 				}
@@ -49,7 +55,6 @@ export default function(di: DIContainer) {
 				const client = await Client.findOne({
 					where: { id: access_token.client_id }
 				})
-
 				if (client == null) {
 					throw new HttpBadRequestError('Client does not exist')
 				}
@@ -59,11 +64,11 @@ export default function(di: DIContainer) {
 					username: user.username
 				}
 
-				if (client.grants.indexOf('profile') > -1 || client.grants.indexOf('profile:email') > -1) {
+				if (client.hasPermission(['profile:email'])) {
 					info['email'] = user.email
 				}
 
-				if (client.grants.indexOf('profile') > -1 || client.grants.indexOf('profile:birthdate') > -1) {
+				if (client.hasPermission(['profile:birthdate'])) {
 					info['birthdate'] = user.birthdate
 				}
 

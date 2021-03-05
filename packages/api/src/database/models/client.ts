@@ -4,6 +4,17 @@ export default class Client extends Model {
 	public id!: string
 	public secret!: string
 	public grants!: string[]
+	public redirects!: string[]
+	public perms!: string[]
+
+	hasPermission(perms: string[]): boolean {
+		if (this.perms.indexOf('profile:all') > -1) return true
+
+		for (const perm in perms) {
+			if (this.perms.indexOf(perm) == -1) return false
+		}
+		return true
+	}
 
 	static initializeModel(sequelize: Sequelize): Model {
 		return Client.init({
@@ -19,6 +30,16 @@ export default class Client extends Model {
 				allowNull: false,
 				unique: true
 			},
+			redirects: {
+				type: DataTypes.STRING,
+				allowNull: true,
+				set(value: string[]) {
+					this.setDataValue('redirects', value.join(','))
+				},
+				get() {
+					return (this.getDataValue('redirects') || '').split(',')
+				}
+			},
 			grants: {
 				type: DataTypes.STRING,
 				allowNull: true,
@@ -27,6 +48,16 @@ export default class Client extends Model {
 				},
 				get() {
 					return (this.getDataValue('grants') || '').split(',')
+				}
+			},
+			perms: {
+				type: DataTypes.STRING,
+				allowNull: true,
+				set(value: string[]) {
+					this.setDataValue('perms', value.join(','))
+				},
+				get() {
+					return (this.getDataValue('perms') || '').split(',')
 				}
 			}
 		}, {

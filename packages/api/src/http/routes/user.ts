@@ -26,9 +26,9 @@ export default function(di: DIContainer, oauth: OAuthServer): Router {
 		controller.register
 	)
 
-	router.post(
+	router.get(
 		'/info',
-		oauth.authorize(),
+		oauth.authenticate({ allowBearerTokensInQueryString: true }),
 		controller.info
 	)
 

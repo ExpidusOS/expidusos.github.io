@@ -26,12 +26,12 @@ export default class OAuthModel implements OAuth2Server.PasswordModel, OAuth2Ser
 		const user = await User.findOne({
 			where: { uuid: auth_code.get('uuid') }
 		})
-		if (!user) throw new Error('Invalid resource')
+		if (!user) throw new Error('Unknown user')
 
 		const client = await Client.findOne({
 			where: { id: auth_code.get('client_id') }
 		})
-		if (!client) throw new Error('Invalid resource')
+		if (!client) throw new Error('Unknown client')
 
 		return {
 			expiresAt: auth_code.get('expires'),
@@ -40,7 +40,8 @@ export default class OAuthModel implements OAuth2Server.PasswordModel, OAuth2Ser
 			scope: auth_code.get('scope'),
 			client: {
 				id: client.id,
-				grants: client.grants
+				grants: client.grants,
+				redirectUris: client.redirects
 			},
 			user: user.toJSON()
 		}
@@ -55,12 +56,12 @@ export default class OAuthModel implements OAuth2Server.PasswordModel, OAuth2Ser
 		const user = await User.findOne({
 			where: { uuid: auth_code.get('uuid') }
 		})
-		if (!user) throw new Error('Invalid resource')
+		if (!user) throw new Error('Unknown user')
 
 		const client = await Client.findOne({
 			where: { id: auth_code.get('client_id') }
 		})
-		if (!client) throw new Error('Invalid resource')
+		if (!client) throw new Error('Unknown client')
 
 		return {
 			expiresAt: auth_code.get('expires'),
@@ -69,7 +70,8 @@ export default class OAuthModel implements OAuth2Server.PasswordModel, OAuth2Ser
 			scope: auth_code.get('scope'),
 			client: {
 				id: client.id,
-				grants: client.grants
+				grants: client.grants,
+				redirectUris: client.redirects
 			},
 			user: user.toJSON()
 		}
@@ -90,19 +92,16 @@ export default class OAuthModel implements OAuth2Server.PasswordModel, OAuth2Ser
 		const access_token = await AccessToken.findOne({
 			where: { token }
 		})
-
 		if (!access_token) throw new Error('Invalid resource')
 
 		const user = await User.findOne({
 			where: { uuid: access_token.get('uuid') }
 		})
-
 		if (!user) throw new Error('Invalid resource')
 
 		const client = await Client.findOne({
 			where: { id: access_token.get('client_id') }
 		})
-
 		if (!client) throw new Error('Invalid resource')
 
 		return {
@@ -111,23 +110,28 @@ export default class OAuthModel implements OAuth2Server.PasswordModel, OAuth2Ser
 			scope: access_token.get('scope'),
 			client: {
 				id: client.id,
-				grants: client.grants
+				grants: client.grants,
+				redirectUris: client.redirects
 			},
 			user: user.toJSON()
 		}
 	}
 
-	async getClient(client_id: string, client_secret: string): Promise<OAuth2Server.Client> {
+	async getClient(client_id: string, client_secret: string): Promise<OAuth2Server.Client | OAuth2Server.Falsey> {
 		this.di.logger.debug(`Getting client: ${client_id} ${(client_secret || '').split('').map(() => '*').join('')}`)
 
 		const client = await Client.findOne({
-			where: { id: client_id, secret: client_secret }
+			where: { id: client_id }
 		})
+		if (!client) return false
 
-		if (!client) throw new Error('Client does not exist')
+		if (client_secret !== null) {
+			if (client.secret != client_secret) return false
+		}
 
 		return {
 			id: client.id,
+			redirectUris: client.redirects,
 			grants: client.grants
 		}
 	}
@@ -171,7 +175,8 @@ export default class OAuthModel implements OAuth2Server.PasswordModel, OAuth2Ser
 			scope: access_token.get('scope'),
 			client: {
 				id: the_client.id,
-				grants: the_client.grants
+				grants: the_client.grants,
+				redirectUris: the_client.redirects
 			},
 			user: tokenUser.toJSON()
 		}
