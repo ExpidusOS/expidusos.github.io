@@ -19,6 +19,14 @@ const schema_register = {
 export default function(di: DIContainer, oauth: OAuthServer): Router {
 	const router = Router()
 	const controller = genController(di)
+	
+	router.get('/auth', oauth.authorize({
+		allowEmptyState: true,
+		authenticateHandler: {
+			handle: controller.auth
+		}
+	}))
+	router.post('/token', oauth.token())
 
 	router.post(
 		'/register',

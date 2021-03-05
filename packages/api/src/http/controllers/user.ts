@@ -4,10 +4,41 @@ import AccessToken from '../../database/models/accesstoken'
 import Client from '../../database/models/client'
 import User from '../../database/models/user'
 import { BaseMessage } from '../../message'
-import { HttpBadRequestError } from '../exceptions'
+import { HttpBadRequestError, HttpValidationError } from '../exceptions'
+import OAuth2Server from 'oauth2-server'
+import { validate } from 'jsonschema'
+import bcrypt from 'bcrypt'
 
 export default function(di: DIContainer) {
 	return {
+		async auth(req: Request, res: Response): Promise<OAuth2Server.User> {
+			const v = validate({
+				username: req.query.username,
+				password: req.query.password
+			}, {
+				id: '/UserAuthentication',
+				type: 'object',
+				properties: {
+					username: { type: 'string', pattern: '[^\\s]+', minLength: 5 },
+					password: { type: 'string', minLength: 8 },
+				},
+				required: ['username', 'password']
+			})
+
+			if (!v.valid) throw new HttpValidationError(v.errors)
+
+			const user = User.findOne({
+				where: { username: req.query.username }
+			})
+
+			if (!user) {
+				throw new Error('Invalid user')
+			}
+
+			if (!bcrypt.compareSync(req.query.password, user.get('password'))) throw new Error('Invalid password')
+
+			return user.toJSON()
+		},
 		async register(req: Request, res: Response, next: NextFunction) {
 			try {
 				const { username } = req.body
