@@ -32,7 +32,7 @@ export default class User extends Model {
 	}
 
 	static initializeModel(sequelize: Sequelize): Model {
-		return User.init({
+		const model = User.init({
 			uuid: {
 				type: DataTypes.UUID,
 				defaultValue: DataTypes.UUIDV4,
@@ -82,5 +82,6 @@ export default class User extends Model {
 			foreignKey: 'owner_uuid',
 			as: 'publishers'
 		})
+		return model
 	}
 }

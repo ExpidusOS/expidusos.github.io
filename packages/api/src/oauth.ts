@@ -1,15 +1,87 @@
 import bcrypt from 'bcrypt'
 import OAuth2Server from 'oauth2-server'
 import AccessToken from './database/models/accesstoken'
+import AuthCode from './database/models/authcode'
 import Client from './database/models/client'
 import User from './database/models/user'
 import DIContainer from './providers/di'
 
-export default class OAuthModel implements OAuth2Server.PasswordModel {
+export default class OAuthModel implements OAuth2Server.PasswordModel, OAuth2Server.AuthorizationCodeModel {
 	private di: DIContainer
 
 	constructor(di: DIContainer) {
 		this.di = di
+	}
+
+	async saveAuthorizationCode(code: OAuth2Server.AuthorizationCode, _client: OAuth2Server.Client, _user: OAuth2Server.User): Promise<OAuth2Server.AuthorizationCode> {
+		const auth_code = await AuthCode.create({
+			expires: code.expiresAt,
+			code: code.authorizationCode,
+			redirect: code.redirectUri,
+			scope: code.scope,
+			client_id: _client.id,
+			uuid: _user.uuid
+		})
+
+		const user = await User.findOne({
+			where: { uuid: auth_code.get('uuid') }
+		})
+		if (!user) throw new Error('Invalid resource')
+
+		const client = await Client.findOne({
+			where: { id: auth_code.get('client_id') }
+		})
+		if (!client) throw new Error('Invalid resource')
+
+		return {
+			expiresAt: auth_code.get('expires'),
+			authorizationCode: auth_code.get('code'),
+			redirectUri: auth_code.get('redirect'),
+			scope: auth_code.get('scope'),
+			client: {
+				id: client.id,
+				grants: client.grants
+			},
+			user: user.toJSON()
+		}
+	}
+
+	async getAuthorizationCode(code: string): Promise<OAuth2Server.AuthorizationCode | OAuth2Server.Falsey> {
+		const auth_code = await AuthCode.findOne({
+			where: { code }
+		})
+		if (!auth_code) return false
+
+		const user = await User.findOne({
+			where: { uuid: auth_code.get('uuid') }
+		})
+		if (!user) throw new Error('Invalid resource')
+
+		const client = await Client.findOne({
+			where: { id: auth_code.get('client_id') }
+		})
+		if (!client) throw new Error('Invalid resource')
+
+		return {
+			expiresAt: auth_code.get('expires'),
+			authorizationCode: auth_code.get('code'),
+			redirectUri: auth_code.get('redirect'),
+			scope: auth_code.get('scope'),
+			client: {
+				id: client.id,
+				grants: client.grants
+			},
+			user: user.toJSON()
+		}
+	}
+
+	async revokeAuthorizationCode(code: OAuth2Server.AuthorizationCode): Promise<boolean> {
+		const auth_code = await AuthCode.findOne({
+			where: { code: code.authorizationCode }
+		})
+		if (!auth_code) return false
+		await auth_code.destroy()
+		return true
 	}
 
 	async getAccessToken(token: string): Promise<OAuth2Server.Token> {
@@ -105,9 +177,18 @@ export default class OAuthModel implements OAuth2Server.PasswordModel {
 		}
 	}
 
+	async revokeToken(token: OAuth2Server.Token): Promise<boolean> {
+		const access_token = await AccessToken.findOne({
+			where: { token: token.accessToken }
+		})
+		if (!access_token) return false
+		await access_token.destroy()
+		return true
+	}
+
 	async verifyScope(token: OAuth2Server.Token, scope: string): Promise<boolean> {
 		const access_token = await AccessToken.findOne({
-			where: { token }
+			where: { token: token.accessToken }
 		})
 		if (!access_token) throw new Error('Access token does not exist')
 		return access_token.scope == scope
