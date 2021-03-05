@@ -36,7 +36,7 @@ describe('E2E - User', () => {
       .expect((response: any) => {
         expect(response.status).toBe(200)
         expect(response.body).toMatchObject({
-          type: 'register',
+          type: 'user:register',
           data: {
             uuid: expect.any(String),
             username: 'jesttest',
