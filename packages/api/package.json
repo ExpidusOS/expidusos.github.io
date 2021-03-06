@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "cors": "^2.8.5",
     "mariadb": "^2.5.2",
     "sequelize": "^6.3.5",
     "wait-on": "^5.2.1"

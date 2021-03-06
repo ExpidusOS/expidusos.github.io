@@ -11,34 +11,6 @@ import bcrypt from 'bcrypt'
 
 export default function(di: DIContainer) {
 	return {
-		async auth(req: Request, res: Response): Promise<OAuth2Server.User> {
-			const v = validate({
-				username: req.query.username,
-				password: req.query.password
-			}, {
-				id: '/UserAuthentication',
-				type: 'object',
-				properties: {
-					username: { type: 'string', pattern: '[^\\s]+', minLength: 5 },
-					password: { type: 'string', minLength: 8 },
-				},
-				required: ['username', 'password']
-			})
-
-			if (!v.valid) throw new HttpValidationError(v.errors)
-
-			const user = await User.findOne({
-				where: { username: req.query.username }
-			})
-
-			if (!user) {
-				throw new Error('Invalid user')
-			}
-
-			if (!bcrypt.compareSync(req.query.password, user.get('password'))) throw new Error('Invalid password')
-
-			return user.toJSON()
-		},
 		async register(req: Request, res: Response, next: NextFunction) {
 			try {
 				const { username } = req.body

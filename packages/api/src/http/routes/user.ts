@@ -21,10 +21,7 @@ export default function(di: DIContainer, oauth: OAuthServer): Router {
 	const controller = genController(di)
 	
 	router.get('/auth', oauth.authorize({
-		allowEmptyState: true,
-		authenticateHandler: {
-			handle: controller.auth
-		}
+		allowEmptyState: true
 	}))
 	router.post('/token', oauth.token())
 
