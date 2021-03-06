@@ -27,7 +27,7 @@ export default function(di: DIContainer) {
 
 			if (!v.valid) throw new HttpValidationError(v.errors)
 
-			const user = User.findOne({
+			const user = await User.findOne({
 				where: { username: req.query.username }
 			})
 
