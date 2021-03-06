@@ -73,7 +73,6 @@ export default {
 						username: this.username,
 						password: this.password
 					})
-					console.log(this.$auth)
 					this.$router.push('/')
 				} catch(err) {
 					this.hasError = true
