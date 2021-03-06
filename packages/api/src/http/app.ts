@@ -6,7 +6,6 @@ import winston from '../providers/winston'
 import DIContainer from '../providers/di'
 import { sequelize } from '../database'
 import { notFoundHandler, errorHandler } from './middleware/error'
-import cors from 'cors'
 
 const app = express()
 const di = new DIContainer(
@@ -26,7 +25,6 @@ app.use((req, res, next) => {
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
-app.use(cors())
 app.use('/v1/user', genUserRouter(di, oauth))
 app.use(notFoundHandler)
 app.use(errorHandler)
