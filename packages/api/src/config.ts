@@ -13,8 +13,8 @@ export default {
 	production,
 	clients: [
 		{
-			id: 'c083b285-2cbd-451a-9a14-cd580e55ec67',
-			secret: '3D439605F0E42B00EEF0C784700C99CA',
+			id: process.env.EXPIDUS_CLOUD_CLIENT_ID,
+			secret: process.env.EXPIDUS_CLOUD_CLIENT_SECRET,
 			redirects: ['https://account.expidusos.com/login', 'https://account.expidusos.com/register'],
 			grants: ['authorization_code', 'password'],
 			perms: ['profile:all']

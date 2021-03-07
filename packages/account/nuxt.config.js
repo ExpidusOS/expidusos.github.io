@@ -1,4 +1,5 @@
 import { Tokyonight, Tokyoday } from '@expidus/common/colors'
+import url from 'url'
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -22,19 +23,27 @@ export default {
 	auth: {
 		strategies: {
 			local: {
-				scheme: 'oauth2',
+				scheme: '~/schemes/expidus-cloud.js',
 				endpoints: {
-					authorization: 'https://api.expidusos.com/v1/user/auth',
-					token: 'https://api.expidusos.com/v1/user/token',
-					userInfo: 'https://api.expidusos.com/v1/user/info'
+					login: {
+						url: 'https://api.expidusos.com/v1/user/token',
+						method: 'post'
+					},
+					user: {
+						url: 'https://api.expidusos.com/v1/user/info',
+						method: 'get',
+						propertyName: 'data'
+					},
+					logout: false
 				},
-				responseMode: 'query.jwt',
-				accessType: 'offline',
-				clientId: 'c083b285-2cbd-451a-9a14-cd580e55ec67',
-				clientSecret: '3D439605F0E42B00EEF0C784700C99CA',
-				responseType: 'code',
-				grantType: 'password',
-				scope: ['profile', 'profile:edit']
+				clientId: process.env.EXPIDUS_CLOUD_CLIENT_ID,
+				clientSecret: process.env.EXPIDUS_CLOUD_CLIENT_SECRET,
+				token: {
+					property: 'access_token'
+				},
+				user: {
+					property: 'data'
+				}
 			}
 		}
 	},

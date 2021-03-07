@@ -6,10 +6,15 @@
 					<v-card-title>Login</v-card-title>
 					<v-card-text>Please log in with your ExpidusOS Cloud Account or register <NuxtLink to="/register">here</NuxtLink>.</v-card-text>
 
-					<v-card v-if="hasError">
-						<v-card-title>Error</v-card-title>
-						<v-card-text :value="errorMessage" />
-					</v-card>
+					<v-row align="center" v-if="hasError">
+						<v-spacer />
+						<v-col cols="8" class="mb-auto">
+							<v-alert color="red">
+								{{ errorMessage }}
+							</v-alert>
+						</v-col>
+						<v-spacer />
+					</v-row>
 
 					<v-form @submit.prevent="submit" ref="login" v-model="valid" lazy-validation>
 						<v-row align="center">
@@ -34,6 +39,8 @@
 	</v-container>
 </template>
 <script>
+import qs from 'qs'
+
 export default {
 	auth: false,
 	head() {
@@ -57,21 +64,19 @@ export default {
 		}
 	},
 	methods: {
-		submit() {
+		async submit() {
 			this.hasError = false
 			if (this.$refs.login.validate()) {
 				this.$refs.login.resetValidation()
 				try {
-					const resp = this.$auth.login({
-						data: {
-							username: this.username,
-							password: this.password
-						}
+					await this.$auth.login({
+						username: this.username,
+						password: this.password
 					})
-					console.log(resp)
+					this.$router.push('/')
 				} catch(err) {
 					this.hasError = true
-					this.errorMessage = error.message
+					this.errorMessage = err.response ? `${err.response.data.error}: ${err.response.data.error_description}` : err.message
 				}
 			}
 		}

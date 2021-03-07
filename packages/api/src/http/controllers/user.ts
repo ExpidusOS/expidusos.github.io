@@ -4,7 +4,10 @@ import AccessToken from '../../database/models/accesstoken'
 import Client from '../../database/models/client'
 import User from '../../database/models/user'
 import { BaseMessage } from '../../message'
-import { HttpBadRequestError } from '../exceptions'
+import { HttpBadRequestError, HttpValidationError } from '../exceptions'
+import OAuth2Server from 'oauth2-server'
+import { validate } from 'jsonschema'
+import bcrypt from 'bcrypt'
 
 export default function(di: DIContainer) {
 	return {
