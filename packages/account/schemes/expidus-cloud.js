@@ -5,8 +5,8 @@ export default class ExpidusCloudScheme extends LocalScheme {
 	login({ username, password }) {
 		return super.login({
 			data: qs.stringify({
-				client_id: this.options.clientId,
-				client_secret: this.options.clientSecret,
+				client_id: this.options.client.id,
+				client_secret: this.options.client.secret,
 				grant_type: 'password',
 				username,
 				password

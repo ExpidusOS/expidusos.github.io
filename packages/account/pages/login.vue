@@ -77,6 +77,7 @@ export default {
 				} catch(err) {
 					this.hasError = true
 					this.errorMessage = err.response ? `${err.response.data.error}: ${err.response.data.error_description}` : err.message
+					console.error(err)
 				}
 			}
 		}

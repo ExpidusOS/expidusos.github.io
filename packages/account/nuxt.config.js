@@ -36,8 +36,10 @@ export default {
 					},
 					logout: false
 				},
-				clientId: process.env.EXPIDUS_CLOUD_CLIENT_ID,
-				clientSecret: process.env.EXPIDUS_CLOUD_CLIENT_SECRET,
+				client: {
+					id: process.env.EXPIDUS_CLOUD_CLIENT_ID,
+					secret: process.env.EXPIDUS_CLOUD_CLIENT_SECRET
+				},
 				token: {
 					property: 'access_token'
 				},
