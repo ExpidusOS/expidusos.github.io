@@ -25,7 +25,7 @@ export default function(di: DIContainer) {
 				const createdUser = await User.create({
 					username,
 					password: req.body.password,
-					birthdate: req.body.birthdate,
+					birthdate: new Date(req.body.birthdate),
 					email: req.body.email
 				})
 
