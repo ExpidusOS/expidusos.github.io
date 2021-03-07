@@ -37,8 +37,9 @@ import VList from 'vuetify/es5/components/VList/VList.js'
 import VNavigationDrawer from 'vuetify/es5/components/VNavigationDrawer/VNavigationDrawer.js'
 import VSpacer from 'vuetify/es5/components/VGrid/VSpacer.js'
 import { VToolbarTitle } from 'vuetify/es5/components/VToolbar/index.js'
+import Vue from 'vue'
 
-export default {
+export default Vue.extend({
 	name: 'Panel',
 	data: () => ({ drawer: false }),
 	props: {
@@ -60,5 +61,5 @@ export default {
 		VSpacer,
 		VToolbarTitle
 	}
-}
+})
 </script>
