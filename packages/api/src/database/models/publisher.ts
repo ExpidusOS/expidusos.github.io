@@ -13,13 +13,14 @@ export default class Publisher extends Model {
 		return Publisher.init({
 			uuid: {
 				type: DataTypes.UUID,
+				defaultValue: DataTypes.UUIDV4,
 				allowNull: false,
 				primaryKey: true,
 				unique: true
 			},
 			owner_uuid: {
 				type: DataTypes.UUID,
-				allowNull: false,
+				allowNull: false
 			},
 			name: {
 				type: DataTypes.STRING,
@@ -33,7 +34,10 @@ export default class Publisher extends Model {
 			},
 			desc: {
 				type: DataTypes.STRING,
-				allowNull: true
+				allowNull: true,
+				validate: {
+					len: [0, 256]
+				}
 			},
 			homepage: {
 				type: DataTypes.STRING,
@@ -41,7 +45,8 @@ export default class Publisher extends Model {
 				validate: { isUrl: true }
 			},
 			trusted: {
-				type: DataTypes.BOOLEAN
+				type: DataTypes.BOOLEAN,
+				defaultValue: false
 			}
 		}, {
 			sequelize,
