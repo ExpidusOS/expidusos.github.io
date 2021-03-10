@@ -8,11 +8,11 @@ const schema_find = {
 	type: 'object',
 	properties: {
 		owner: { type: 'string', required: false, pattern: /(uuid:[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}|username:[A-Za-z0-9]+)/ },
-		trusted: { type: 'boolean', required: false },
+		trusted: { type: 'string', required: false, pattern: /(true|false)/ },
 		name: { type: 'string', required: false },
 		id: { type: 'string', required: false },
-		limit: { type: 'number', required: false },
-		offset: { type: 'number', required: false }
+		limit: { type: 'string', required: false, pattern: /[0-9]+/ },
+		offset: { type: 'string', required: false, pattern: /[0-9]+/ }
 	}
 }
 
@@ -41,7 +41,7 @@ export default function(di: DIContainer): Router {
 
 	router.get('/find',
 		validateQuery(schema_find),
-		controller.list
+		controller.find
 	)
 
 	router.post('/',

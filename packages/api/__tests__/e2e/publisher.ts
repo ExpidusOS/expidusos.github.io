@@ -8,6 +8,7 @@ import qs from 'qs'
 
 describe('E2E - Publisher', () => {
 	const request = supertest(app)
+	let id: string | undefined;
 
 	beforeAll(async () => {
 		await sequelize.authenticate()
@@ -43,6 +44,25 @@ describe('E2E - Publisher', () => {
 					},
 					type: 'publisher:create'
 				})
+				id = response.body.data.id
+			}))
+	})
+
+	describe('DELETE /v1/publisher/', () => {
+		test('delete demo publisher', () => request
+			.delete('/v1/publisher/')
+			.send(qs.stringify({
+				access_token: 'dummy_token',
+				id
+			}))
+			.expect((response: any) => {
+				expect(response.status).toBe(200)
+				expect(response.body).toMatchObject({
+					data: {
+						success: true
+					},
+					type: 'publisher:delete'
+				})
 			}))
 	})
 
@@ -54,5 +74,50 @@ describe('E2E - Publisher', () => {
 		test('invalid username owner', () => request
 			.get('/v1/publisher/find?owner=username:@wont-work')
 			.expect(422))
+
+		test('find by username - who doesn\'t exist', () => request
+			.get('/v1/publisher/find?owner=username:JackRock')
+			.expect(400))
+
+		test('find', () => request
+			.get('/v1/publisher/find?trusted=true&name=Google&id=650e8c21-cb34-4cb7-9712-d726e2eae59d')
+			.expect((response: any) => {
+				expect(response.status).toBe(200)
+				expect(response.body).toMatchObject({
+					data: [],
+					type: 'publisher:find'
+				})
+			}))
+
+		test('find by username', () => request
+			.get('/v1/publisher/find?owner=username:JohnSmith')
+			.expect((response: any) => {
+				expect(response.status).toBe(200)
+				expect(response.body).toMatchObject({
+					data: [],
+					type: 'publisher:find'
+				})
+			}))
+
+		test('find by user id', () => request
+			.get('/v1/publisher/find?owner=uuid:d95f83f7-d40f-4071-b650-a98e03e368c2')
+			.expect((response: any) => {
+				expect(response.status).toBe(200)
+				expect(response.body).toMatchObject({
+					data: [],
+					type: 'publisher:find'
+				})
+			}))
+
+		test('single publisher', () => request
+			.get('/v1/publisher/find?limit=1&offset=0')
+			.expect((response: any) => {
+				expect(response.status).toBe(200)
+				expect(response.body).toMatchObject({
+					data: [
+					],
+					type: 'publisher:find'
+				})
+			}))
 	})
 })

@@ -9,7 +9,7 @@ import { BaseMessage } from '../../message'
 
 export default function(di: DIContainer) {
 	return {
-		async list(req: Request, res: Response, next: NextFunction) {
+		async find(req: Request, res: Response, next: NextFunction) {
 			try {
 				const where: Record<string, any> = {}
 
@@ -31,7 +31,7 @@ export default function(di: DIContainer) {
 
 				if (typeof req.query.trusted === 'string') where['trusted'] = req.query.trusted === 'true' ? true : false
 				if (typeof req.query.name === 'string') where['name'] = req.query.name
-				if (typeof req.query.uuid === 'string') where['uuid'] = req.query.id
+				if (typeof req.query.id === 'string') where['uuid'] = req.query.id
 
 				const publishers = await Publisher.findAll({
 					where,
@@ -46,7 +46,7 @@ export default function(di: DIContainer) {
 					email: publisher.email,
 					homepage: publisher.homepage,
 					trusted: publisher.trusted
-				})), 'publisher:list'))
+				})), 'publisher:find'))
 			} catch (e) {
 				next(e)
 			}
