@@ -9,7 +9,44 @@ import { BaseMessage } from '../../message'
 
 export default function(di: DIContainer) {
 	return {
-		list(req: Request, res: Response, next: NextFunction) {},
+		async list(req: Request, res: Response, next: NextFunction) {
+			try {
+				let owner_uuid = typeof req.query.owner === 'string' && req.query.owner.startsWith('uuid:') ? req.query.owner.split(':')[1] : undefined
+				if (typeof req.query.owner === 'string' && req.query.owner.startsWith('username:')) {
+					const user = await User.findOne({
+						where: { username: req.query.owner.split(':')[1] }
+					})
+
+					if (user === null) {
+						throw new HttpBadRequestError('User does not exist')
+					}
+
+					owner_uuid = user.uuid
+				}
+
+				const publishers = await Publisher.findAll({
+					where: {
+						owner_uuid,
+						name: req.query.name,
+						trusted: req.query.trusted,
+						uuid: req.query.id
+					},
+					limit: typeof req.query.limit === 'string' ? parseInt(req.query.limit) : undefined,
+					offset: typeof req.query.offset == 'string' ? parseInt(req.query.offset) : undefined
+				})
+
+				res.json(new BaseMessage(publishers.map((publisher) => ({
+					id: publisher.uuid,
+					name: publisher.name,
+					desc: publisher.desc,
+					email: publisher.email,
+					homepage: publisher.homepage,
+					trusted: publisher.trusted
+				})), 'publisher:list'))
+			} catch (e) {
+				next(e)
+			}
+		},
 		async create(req: Request, res: Response, next: NextFunction) {
 			try {	
 				const access_token = await AccessToken.findOne({
