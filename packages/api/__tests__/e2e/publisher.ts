@@ -8,7 +8,7 @@ import qs from 'qs'
 
 describe('E2E - Publisher', () => {
 	const request = supertest(app)
-	let id: string | undefined;
+	let id: string | undefined
 
 	beforeAll(async () => {
 		await sequelize.authenticate()
