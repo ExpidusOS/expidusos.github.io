@@ -2,7 +2,6 @@ import { Router } from 'express'
 import { validateBody } from '../middleware/validate'
 import DIContainer from '../../providers/di'
 import genController from '../controllers/user'
-import OAuthServer from 'express-oauth-server'
 
 const schema_register = {
 	id: '/UserRegister',
@@ -16,14 +15,14 @@ const schema_register = {
 	required: ['username', 'password', 'email', 'birthdate']
 }
 
-export default function(di: DIContainer, oauth: OAuthServer): Router {
+export default function(di: DIContainer): Router {
 	const router = Router()
 	const controller = genController(di)
 	
-	router.get('/auth', oauth.authorize({
+	router.get('/auth', di.oauth.authorize({
 		allowEmptyState: true
 	}))
-	router.post('/token', oauth.token())
+	router.post('/token', di.oauth.token())
 
 	router.post(
 		'/register',
@@ -33,7 +32,7 @@ export default function(di: DIContainer, oauth: OAuthServer): Router {
 
 	router.get(
 		'/info',
-		oauth.authenticate({ allowBearerTokensInQueryString: true }),
+		di.oauth.authenticate({ allowBearerTokensInQueryString: true }),
 		controller.info
 	)
 
