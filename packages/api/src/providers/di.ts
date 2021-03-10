@@ -19,7 +19,8 @@ export default class DIContainer {
 		this.logger = logger
 		this.db = db
 		this.oauth = new OAuthServer({
-			model: new OAuthModel(this)
+			model: new OAuthModel(this),
+			useErrorHandler: true
 		})
 	}
 }
