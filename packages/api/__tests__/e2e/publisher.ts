@@ -16,6 +16,7 @@ describe('E2E - Publisher', () => {
 	})
 
 	afterAll(async () => {
+		await seeder.down()
 		await sequelize.close()
 	})
 

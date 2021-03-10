@@ -8,7 +8,8 @@ export default class Client extends Model {
 	public perms!: string[]
 
 	hasPermission(perms: string[]): boolean {
-		if (this.perms.indexOf('profile:all') > -1) return true
+		const allPerms = this.perms.map((perm) => `${perm.split(':')}:all`).filter((c, index, array) => array.indexOf(c) === index)
+		if (perms.filter((perm) => allPerms.indexOf(perm) === -1).length > 0) return true
 
 		for (const perm in perms) {
 			if (this.perms.indexOf(perm) == -1) return false
