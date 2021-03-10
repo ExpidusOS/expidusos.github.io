@@ -7,7 +7,7 @@ const schema_find = {
 	id: '/PublisherFind',
 	type: 'object',
 	properties: {
-		owner: { type: 'string', required: false },
+		owner: { type: 'string', required: false, pattern: /(uuid:[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}|username:[A-Za-z0-9]+)/ },
 		trusted: { type: 'boolean', required: false },
 		name: { type: 'string', required: false },
 		id: { type: 'string', required: false },
