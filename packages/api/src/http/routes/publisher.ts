@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { validateBody } from '../middleware/validate'
+import { validateBody, validateQuery } from '../middleware/validate'
 import DIContainer from '../../providers/di'
 import genController from '../controllers/publisher'
 
@@ -40,7 +40,7 @@ export default function(di: DIContainer): Router {
 	const controller = genController(di)
 
 	router.get('/find',
-		validateBody(schema_find),
+		validateQuery(schema_find),
 		controller.list
 	)
 

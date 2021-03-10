@@ -11,26 +11,30 @@ export default function(di: DIContainer) {
 	return {
 		async list(req: Request, res: Response, next: NextFunction) {
 			try {
-				let owner_uuid = typeof req.query.owner === 'string' && req.query.owner.startsWith('uuid:') ? req.query.owner.split(':')[1] : undefined
-				if (typeof req.query.owner === 'string' && req.query.owner.startsWith('username:')) {
-					const user = await User.findOne({
-						where: { username: req.query.owner.split(':')[1] }
-					})
+				const where: Record<string, any> = {}
 
-					if (user === null) {
-						throw new HttpBadRequestError('User does not exist')
+				if (typeof req.query.owner === 'string') {
+					if (req.query.owner.startsWith('uuid:')) {
+						where['owner_uuid'] = req.query.owner.split(':')[1]
+					} else if (req.query.owner.startsWith('username:')) {
+						const user = await User.findOne({
+							where: { username: req.query.owner.split(':')[1] }
+						})
+
+						if (user === null) {
+							throw new HttpBadRequestError('User does not exist')
+						}
+
+						where['owner_uuid'] = user.uuid
 					}
-
-					owner_uuid = user.uuid
 				}
 
+				if (typeof req.query.trusted === 'string') where['trusted'] = req.query.trusted === 'true' ? true : false
+				if (typeof req.query.name === 'string') where['name'] = req.query.name
+				if (typeof req.query.uuid === 'string') where['uuid'] = req.query.id
+
 				const publishers = await Publisher.findAll({
-					where: {
-						owner_uuid,
-						name: req.query.name,
-						trusted: req.query.trusted,
-						uuid: req.query.id
-					},
+					where,
 					limit: typeof req.query.limit === 'string' ? parseInt(req.query.limit) : undefined,
 					offset: typeof req.query.offset == 'string' ? parseInt(req.query.offset) : undefined
 				})
