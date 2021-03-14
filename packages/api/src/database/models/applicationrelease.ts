@@ -71,7 +71,7 @@ export default class ApplicationRelease extends Model {
 				allowNull: false,
 				defaultValue: '',
 				set(val: Record<string, number>) {
-					let genval: string[] = []
+					const genval: string[] = []
 					for (const label in val) {
 						const score = val[label]
 						genval.push(`${label}:${score}`)
@@ -94,7 +94,7 @@ export default class ApplicationRelease extends Model {
 				allowNull: false,
 				defaultValue: '',
 				set(val: Record<string, number>) {
-					let genval: string[] = []
+					const genval: string[] = []
 					for (const label in val) {
 						const score = val[label]
 						genval.push(`${label}:${score}`)
