@@ -47,8 +47,8 @@ export default class ApplicationRelease extends Model {
 				type: DataTypes.STRING,
 				allowNull: false,
 				validate: {
-					isChecksumGood(val) {
-						const curr_checksum = crypto.createHash('sha512').update(Buffer.from(this.binary).toString('binary')).digest('hex')
+					isChecksumGood(val: string) {
+						const curr_checksum = crypto.createHash('sha512').update(Buffer.from((this.binary as string)).toString('binary')).digest('hex')
 						if (curr_checksum !== val) {
 							throw new Error('Invalid checksum for the current binary')
 						}
@@ -58,7 +58,7 @@ export default class ApplicationRelease extends Model {
 			binary: {
 				type: DataTypes.BLOB('long'),
 				allowNull: false,
-				set(val) {
+				set(val: string) {
 					const buf = Buffer.from(val)
 					this.setDataValue('binary', buf)
 					this.setDataValue('checksum', crypto.createHash('sha512').update(buf.toString('binary')).digest('hex'))
