@@ -1,6 +1,7 @@
 import { Sequelize } from 'sequelize'
 import AccessToken from './models/accesstoken'
 import Application from './models/application'
+import ApplicationRelease from './models/applicationrelease'
 import AuthCode from './models/authcode'
 import Client from './models/client'
 import Publisher from './models/publisher'
@@ -11,6 +12,7 @@ import config from '../config'
 export const models = {
 	AccessToken,
 	Application,
+	ApplicationRelease,
 	AuthCode,
 	Client,
 	Publisher,
