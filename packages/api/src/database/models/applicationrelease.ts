@@ -8,6 +8,8 @@ export default class ApplicationRelease extends Model {
 	public changelog!: string
 	public checksum!: string
 	public binary!: string
+	public security_report!: Record<string, number>
+	public privacy_report!: Record<string, number>
 
 	static initializeModel(sequelize: Sequelize): Model {
 		return ApplicationRelease.init({
@@ -62,6 +64,52 @@ export default class ApplicationRelease extends Model {
 					const buf = Buffer.from(val)
 					this.setDataValue('binary', buf)
 					this.setDataValue('checksum', crypto.createHash('sha512').update(buf.toString('binary')).digest('hex'))
+				}
+			},
+			security_report: {
+				type: DataTypes.STRING,
+				allowNull: false,
+				defaultValue: '',
+				set(val: Record<string, number>) {
+					let genval: string[] = []
+					for (const label in val) {
+						const score = val[label]
+						genval.push(`${label}:${score}`)
+					}
+					this.setDataValue('security_report', genval.join(','))
+				},
+				get() {
+					const rawval: string[] = this.getDataValue('security_report').split(',')
+					const report: Record<string, number> = {}
+					for (const item of rawval) {
+						const label = item.split(':')[0]
+						const score = parseInt(item.split(':')[1])
+						report[label] = score
+					}
+					return report
+				}
+			},
+			privacy_report: {
+				type: DataTypes.STRING,
+				allowNull: false,
+				defaultValue: '',
+				set(val: Record<string, number>) {
+					let genval: string[] = []
+					for (const label in val) {
+						const score = val[label]
+						genval.push(`${label}:${score}`)
+					}
+					this.setDataValue('privacy_report', genval.join(','))
+				},
+				get() {
+					const rawval: string[] = this.getDataValue('privacy_report').split(',')
+					const report: Record<string, number> = {}
+					for (const item of rawval) {
+						const label = item.split(':')[0]
+						const score = parseInt(item.split(':')[1])
+						report[label] = score
+					}
+					return report
 				}
 			}
 		}, {
