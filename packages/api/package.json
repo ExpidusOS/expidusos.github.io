@@ -40,6 +40,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "got": "^11.8.2",
     "mariadb": "^2.5.2",
     "sequelize": "^6.3.5",
     "wait-on": "^5.2.1"

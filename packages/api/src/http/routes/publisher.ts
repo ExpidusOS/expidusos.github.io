@@ -12,7 +12,7 @@ const schema_find = {
 		name: { type: 'string', required: false },
 		id: { type: 'string', required: false },
 		limit: { type: 'string', required: false, pattern: /[0-9]+/ },
-		offset: { type: 'string', required: false, pattern: /[0-9]+/ }
+		page: { type: 'string', required: false, pattern: /[0-9]+/ }
 	}
 }
 

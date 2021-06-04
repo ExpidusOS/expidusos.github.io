@@ -11,11 +11,8 @@ import config from '../config'
 
 export const models = {
 	AccessToken,
-	Application,
-	ApplicationRelease,
 	AuthCode,
 	Client,
-	Publisher,
 	Staff,
 	User
 }

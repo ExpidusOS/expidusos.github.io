@@ -1,21 +1,26 @@
 import { Request, Response, NextFunction } from 'express'
+import got from 'got'
 import AccessToken from '../../database/models/accesstoken'
 import Client from '../../database/models/client'
-import Publisher from '../../database/models/publisher'
 import User from '../../database/models/user'
 import DIContainer from '../../providers/di'
 import { HttpBadRequestError } from '../exceptions'
 import { BaseMessage } from '../../message'
+import config from '../../config'
 
 export default function(di: DIContainer) {
 	return {
 		async find(req: Request, res: Response, next: NextFunction) {
 			try {
-				const where: Record<string, any> = {}
+				const query: Record<string, any> = {};
+				let limit = 255
+				let pageNumber = 0
 
 				if (typeof req.query.owner === 'string') {
 					if (req.query.owner.startsWith('uuid:')) {
-						where['owner_uuid'] = req.query.owner.split(':')[1]
+						query.customData = {
+							'owner': req.query.owner.split(':')[1]
+						}
 					} else if (req.query.owner.startsWith('username:')) {
 						const user = await User.findOne({
 							where: { username: req.query.owner.split(':')[1] }
@@ -25,28 +30,43 @@ export default function(di: DIContainer) {
 							throw new HttpBadRequestError('User does not exist')
 						}
 
-						where['owner_uuid'] = user.uuid
+						query.customData = {
+							'owner': user.uuid
+						}
 					}
 				}
 
-				if (typeof req.query.trusted === 'string') where['trusted'] = req.query.trusted === 'true' ? true : false
-				if (typeof req.query.name === 'string') where['name'] = req.query.name
-				if (typeof req.query.id === 'string') where['uuid'] = req.query.id
+				if (typeof req.query.trusted === 'string') {
+					query.customData = {
+						...(query.customData || {}),
+						'trusted': req.query.trusted === 'true' ? true : false
+					}
+				}
+				if (typeof req.query.name === 'string') query['name'] = req.query.name
+				if (typeof req.query.id === 'string') query['developerId'] = req.query.id
+				if (typeof req.query.page === 'string') pageNumber = parseInt(req.query.page)
+				if (typeof req.query.limit === 'string') limit = parseInt(req.query.limit)
 
-				const publishers = await Publisher.findAll({
-					where,
-					limit: typeof req.query.limit === 'string' ? parseInt(req.query.limit) : undefined,
-					offset: typeof req.query.offset == 'string' ? parseInt(req.query.offset) : undefined
+				const { body } = await got('https://market.openchannel.io/v2/developers?query=' + encodeURI(JSON.stringify(query) + `&pageNumber=${pageNumber}&limit=${limit}`), {
+					responseType: 'json',
+					username: config.openchannel.marketplaceID,
+					password: config.openchannel.secret
 				})
 
-				res.json(new BaseMessage(publishers.map((publisher) => ({
-					id: publisher.uuid,
-					name: publisher.name,
-					desc: publisher.desc,
-					email: publisher.email,
-					homepage: publisher.homepage,
-					trusted: publisher.trusted
-				})), 'publisher:find'))
+				res.json(new BaseMessage({
+					pageCount: body.pages,
+					currentPage: body.pageNumber,
+					results: body.list.map((pub) => ({
+						id: pub.developerId,
+						created: new Date(pub.created),
+						trusted: pub.customData.trusted,
+						owner: pub.customData.owner,
+						email: pub.customData.email,
+						homepage: pub.customData.homepage,
+						desc: pub.customData.desc,
+						name: pub.name
+					}))
+				}, 'publisher:find'))
 			} catch (e) {
 				next(e)
 			}
