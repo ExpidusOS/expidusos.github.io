@@ -1,0 +1,72 @@
+// Ref: https://github.com/nuxt-community/vuetify-module#customvariables
+//
+// The variables you want to modify
+// $font-size-root: 20px;
+
+$app-bar-elevation: 1 !default;
+
+$material-dark: (
+  'app-bar': #24283b,
+	'background': #24283b,
+  'bg-color': #24283b,
+  'bottom-navigation': #24283b,
+  'buttons': (
+    'disabled': #1a1b26,
+    'focused': #414868,
+    'focused-alt': #565f89,
+    'pressed': #9aa5ce
+  ),
+	'cards': #1a1b26,
+  'fg-color': #cfc9c2,
+  'navigation-drawer': #24283b,
+  'surface': #24283b,
+  'text': (
+    'theme': #cfc9c2,
+    'primary': #cfc9c2,
+    'secondary': #9aa5ce,
+    'disabled': #b4f9f8,
+    'link': #7dcfff,
+    'link-hover': #2ac3de
+   ),
+  'text-color': #cfc9c2
+);
+
+$material-light: (
+  'app-bar': #d5d6db,
+  'background': #d5d6db,
+  'bg-color': #d5d6db,
+  'bottom-navigation': #d5d6db,
+	'buttons': (
+		'disabled': #d5d6db,
+		'focused': #0f0f14,
+		'focused-alt': #9699a3,
+		'pressed': #565a6e
+	),
+  'cards': #d5d6db,
+  'fg-color': #0f0f14,
+  'navigation-drawer': #d5d6db,
+  'surface': #d5d6db,
+  'text': (
+    'theme': #0f0f14,
+    'primary': #0f0f14,
+    'secondary': #565a6e,
+    'disabled': #33635c,
+    'link': #0f4b6e,
+    'link-hover': #166775
+   ),
+  'text-color': #0f0f14
+);
+
+@import '~vuetify/src/styles/styles.sass';
+
+.v-app-bar {
+	max-height: 48px;
+}
+
+.v-footer {
+	width: 100%;
+
+	.v-card {
+		background-color: inherit;
+	}
+}
