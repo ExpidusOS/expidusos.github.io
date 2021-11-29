@@ -48,4 +48,4 @@ jobs:
           chmod 0600 ~/.ssh/id_rsa
           ssh-keyscan -t rsa ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
           chmod 0600 ~/.ssh/known_hosts
-          ssh -i ~/.ssh/id_rsa "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" "sudo systemctl restart docker-midstall"
+          ssh -i ~/.ssh/id_rsa "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" "sudo systemctl restart docker-expidus"
