@@ -1,4 +1,4 @@
-FROM node:11.13.0-alpine
+FROM node:17-alpine
 
 RUN mkdir -p /usr/src/nuxt-app
 WORKDIR /usr/src/nuxt-app
@@ -7,7 +7,7 @@ RUN apk update && apk upgrade
 RUN apk add git
 
 COPY . /usr/src/nuxt-app/
-RUN npm install
+RUN npm install && npm install -D
 RUN npm run build
 
 EXPOSE 5000
