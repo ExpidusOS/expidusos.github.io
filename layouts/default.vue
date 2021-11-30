@@ -52,6 +52,7 @@
 </template>
 <script>
 export default {
+	name: 'DefaultLayout',
 	data() {
 		return { drawer: false }
 	}
