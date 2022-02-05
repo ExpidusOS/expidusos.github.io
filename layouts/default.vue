@@ -39,7 +39,7 @@
 			<v-app-bar-nav-icon @click="drawer = !drawer">
 				<fa :icon="['fas', 'bars']" />
 			</v-app-bar-nav-icon>
-			<v-toolbar-title>{{ $t('company-name') }}</v-toolbar-title>
+			<v-toolbar-title>{{ $t('product-name') }}</v-toolbar-title>
 		</v-app-bar>
 		<v-navigation-drawer v-model="drawer" absolute temporary>
 			<v-list dense nav>
