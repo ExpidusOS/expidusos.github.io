@@ -5,7 +5,7 @@
 				<v-parallax :src="require('~/assets/img/expidusos.png')">
 				  <v-row justify="left" align="end">
 						<v-col cols="6">
-							<h2 class="image-caption">{{ $('image-caption') }}</h2>
+							<h2 class="image-caption">{{ $t('image-caption') }}</h2>
 						</v-col>
 					</v-row>
 				</v-parallax>
