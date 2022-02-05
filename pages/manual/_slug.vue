@@ -12,8 +12,8 @@
 </template>
 <script>
 export default {
-	async asyncData({ params, query, $content }) {
-		const page = await $content('manual', params.slug, query.lang).fetch()
+	async asyncData({ params, $content, i18n }) {
+		const page = await $content('manual', params.slug, i18n.locale).fetch()
 		return { page }
 	}
 }

@@ -16,7 +16,7 @@
 				</v-btn>
 			</a>
 
-			<a class="text--primary" href="/manual/0.1.1-prealpha?lang=en">
+			<a class="text--primary" href="/manual/0.1.1-prealpha">
 				<v-btn elevation="0">
 					{{ $t('page.manual') }}
 				</v-btn>
@@ -63,7 +63,7 @@
 				</v-list-item>
 				<v-list-item link>
 					<v-list-item-content>
-						<a class="text--primary" href="/manual">
+						<a class="text--primary" href="/manual/0.1.1-prealpha">
 							<v-btn elevation="0">
 								{{ $t('page.manual') }}
 							</v-btn>

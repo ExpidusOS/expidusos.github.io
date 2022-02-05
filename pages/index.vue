@@ -2,7 +2,7 @@
 	<div style="padding-top: 25px">
 	  <v-row justify="center" align="start">
 			<v-col cols="12" md="10" lg="8" xl="8">
-				<v-parallax :src="require('~/assets/img/expidusos.png')">
+				<v-parallax :src="require('~/assets/img/genesis.png')">
 				  <v-row justify="left" align="end">
 						<v-col cols="6">
 							<h2 class="image-caption">{{ $t('image-caption') }}</h2>
