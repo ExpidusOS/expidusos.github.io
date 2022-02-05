@@ -7,8 +7,8 @@ $app-bar-elevation: 1 !default;
 
 $material-dark: (
   'app-bar': #24283b,
-	'background': #24283b,
-  'bg-color': #24283b,
+	'background': #1a1b26,
+  'bg-color': #1a1b26,
   'bottom-navigation': #24283b,
   'buttons': (
     'disabled': #1a1b26,
@@ -16,25 +16,25 @@ $material-dark: (
     'focused-alt': #565f89,
     'pressed': #9aa5ce
   ),
-	'cards': #1a1b26,
-  'fg-color': #cfc9c2,
+	'cards': #24283b,
+  'fg-color': #fff,
   'navigation-drawer': #24283b,
   'surface': #24283b,
   'text': (
-    'theme': #cfc9c2,
-    'primary': #cfc9c2,
+    'theme': #fff,
+    'primary': #fff,
     'secondary': #9aa5ce,
     'disabled': #b4f9f8,
-    'link': #7dcfff,
+    'link': #fff,
     'link-hover': #2ac3de
    ),
-  'text-color': #cfc9c2
+  'text-color': #fff
 );
 
 $material-light: (
   'app-bar': #d5d6db,
-  'background': #d5d6db,
-  'bg-color': #d5d6db,
+  'background': #fff,
+  'bg-color': #fff,
   'bottom-navigation': #d5d6db,
 	'buttons': (
 		'disabled': #d5d6db,
@@ -43,18 +43,18 @@ $material-light: (
 		'pressed': #565a6e
 	),
   'cards': #d5d6db,
-  'fg-color': #0f0f14,
+  'fg-color': #000,
   'navigation-drawer': #d5d6db,
   'surface': #d5d6db,
   'text': (
-    'theme': #0f0f14,
-    'primary': #0f0f14,
+    'theme': #000,
+    'primary': #000,
     'secondary': #565a6e,
     'disabled': #33635c,
-    'link': #0f4b6e,
+    'link': #000,
     'link-hover': #166775
    ),
-  'text-color': #0f0f14
+  'text-color': #000
 );
 
 @import '~vuetify/src/styles/styles.sass';
