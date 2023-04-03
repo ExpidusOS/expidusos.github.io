@@ -22,6 +22,7 @@ jobs:
           cd build/web
           git init
           git remote add ${{ github.server_url }}/${{ github.repository }} origin
+          git branch -m gh-pages
           git add .
           git commit -a -m "Deploy ${{ github.sha }}"
           git push --force
