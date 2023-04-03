@@ -13,7 +13,7 @@ ThemeData _patchTheme(ThemeData input) => input.copyWith(
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.light);
+  final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.dark);
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           routes: {
             '/': (ctx) => HomePage(themeNotifier: themeNotifier),
+            '/download': (ctx) => DownloadPage(themeNotifier: themeNotifier),
           },
         );
       });

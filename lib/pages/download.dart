@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:expidus_website/layouts.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key, required this.themeNotifier}) : super(key: key);
+class DownloadPage extends StatefulWidget {
+  const DownloadPage({Key? key, required this.themeNotifier}) : super(key: key);
 
   final ValueNotifier<ThemeMode> themeNotifier;
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<DownloadPage> createState() => _DownloadPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _DownloadPageState extends State<DownloadPage> {
   @override
   Widget build(BuildContext context) =>
     DefaultLayout(
