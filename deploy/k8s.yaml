@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  label:
+    app: expidus-website
+  name: expidus-website
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: expidus-website
+  template:
+    metadata:
+      labels:
+        app: expidus-website
+    spec:
+      containers:
+        - image: expidus/website
+          imagePullPolicy: Always
+          name: website
+          ports:
+            - containerPort: 80
+              name: http
