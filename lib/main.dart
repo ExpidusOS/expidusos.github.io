@@ -26,7 +26,9 @@ class MyApp extends StatelessWidget {
           darkTheme: _patchTheme(LibTokyoThemeData.night()),
           themeMode: currentMode,
           debugShowCheckedModeBanner: false,
-          home: HomePage(themeNotifier: themeNotifier),
+          routes: {
+            '/': (ctx) => HomePage(themeNotifier: themeNotifier),
+          },
         );
       });
   }
