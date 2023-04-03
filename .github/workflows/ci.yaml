@@ -19,9 +19,10 @@ jobs:
       - name: Download dependencies
         run: |
           flutter pub get
+      - name: Test
+        run: flutter test
       - name: Build
-        run:
-          flutter build web --release
+        run: flutter build web --release
       - if: ${{ github.event_name == 'push' }}
         name: Commit
         run: |

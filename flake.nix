@@ -22,7 +22,7 @@
           rev = "git+${self.shortRev or "dirty"}";
           name = "${pname}-${rev}";
 
-          packages = with pkgs; [ tilt minikube ];
+          packages = with pkgs; [ tilt minikube flutter ];
         };
       });
 }
