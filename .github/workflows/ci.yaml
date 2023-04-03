@@ -21,7 +21,7 @@ jobs:
           flutter pub get
       - name: Build
         run:
-          flutter build web
+          flutter build web --release
       - if: ${{ github.event_name == 'push' }}
         name: Commit
         run: |
