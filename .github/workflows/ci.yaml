@@ -18,8 +18,10 @@ jobs:
           flutter build web
       - if: ${{ github.event_name == 'push' }}
         name: Deploy
-        uses: EndBug/add-and-commit@v9
-        with:
-          message: 'Deploy ${{ github.sha }}'
-          new_branch: gh-pages
-          add: 'build/web'
+        run: |
+          cd build/web
+          git init
+          git remote add ${{ github.server_url }}/${{ github.repository }} origin
+          git add .
+          git commit -a -m "Deploy ${{ github.sha }}"
+          git push --force
