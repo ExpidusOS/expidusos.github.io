@@ -22,6 +22,7 @@ jobs:
           cd build/web
           git init
           git remote add origin ${{ github.server_url }}/${{ github.repository }}
+          git config --global user.name github-actions
           git branch -m gh-pages
           git add .
           git commit -a -m "Deploy ${{ github.sha }}"
