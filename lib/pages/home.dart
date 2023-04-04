@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:expidus_website/layouts.dart';
 import 'package:expidus_website/widgets.dart';
+import 'package:expidus_website/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
@@ -44,74 +45,89 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          SimpleCard(
-            margin: EdgeInsets.symmetric(vertical: 8.0),
+          Flex(
+            direction: AutoScaler.ltLarge.fits(MediaQuery.of(context)) ? Axis.vertical : Axis.horizontal,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
-                'Cross Platform',
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-              RichText(
-                text: TextSpan(
+              Flexible(
+                flex: 1,
+                child: SimpleCard(
+                  margin: EdgeInsets.all(8.0),
                   children: [
-                    TextSpan(
-                      text: 'Designed for more than just your laptop or desktop, ExpidusOS can be used on phones and tablets. ',
-                      style: Theme.of(context).textTheme.bodyLarge,
+                    Text(
+                      'Cross Platform',
+                      style: Theme.of(context).textTheme.headlineLarge,
                     ),
-                    TextSpan(
-                      text: 'We plan on supporting a large range of devices, even handheld game consoles. ',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                    TextSpan(
-                      text: 'You can view our ',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                    WidgetSpan(
-                      alignment: PlaceholderAlignment.baseline,
-                      baseline: TextBaseline.alphabetic,
-                      child: TextLink(
-                        Uri.parse('https://wiki.expidusos.com/devices'),
-                        'wiki',
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline,
-                        ),
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Designed for more than just your laptop or desktop, ExpidusOS can be used on phones and tablets. ',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          TextSpan(
+                            text: 'We plan on supporting a large range of devices, even handheld game consoles. ',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          TextSpan(
+                            text: 'You can view our ',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.baseline,
+                            baseline: TextBaseline.alphabetic,
+                            child: TextLink(
+                              Uri.parse('https://wiki.expidusos.com/devices'),
+                              'wiki',
+                              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
+                          TextSpan(
+                            text: ' for more information on our currently supported devices and one\'s we plan on supporting in the future.',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                        ],
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ),
-                    TextSpan(
-                      text: ' for more information on our currently supported devices and one\'s we plan on supporting in the future.',
+                  ],
+                ),
+              ),
+              Flexible(
+                flex: 1,
+                child: SimpleCard(
+                  margin: EdgeInsets.all(8.0),
+                  children: [
+                    Text(
+                      'Free & Open Source',
+                      style: Theme.of(context).textTheme.headlineLarge,
+                    ),
+                    Text(
+                      'The source code of ExpidusOS is open source and the operating system itself is free. You can download it from this website or build it yourself. ExpidusOS also uses open source technologies like Linux, Zig, Flutter, and Nix.',
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ],
-                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ),
-            ],
-          ),
-          SimpleCard(
-            margin: EdgeInsets.symmetric(vertical: 8.0),
-            children: [
-              Text(
-                'Free & Open Source',
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-              Text(
-                'The source code of ExpidusOS is open source and the operating system itself is free. You can download it from this website or build it yourself. ExpidusOS also uses open source technologies like Linux, Zig, Flutter, and Nix.',
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            ],
-          ),
-          SimpleCard(
-            margin: EdgeInsets.symmetric(vertical: 8.0),
-            children: [
-              Text(
-                'Easy to use',
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-              Text(
-                'ExpidusOS uses modern design technologies to adapt its layout between mobile and desktop devices. This means you can enjoy the same experience on your phone and desktop with ExpidusOS.',
-                style: Theme.of(context).textTheme.bodyLarge,
+              Flexible(
+                flex: 1,
+                child: SimpleCard(
+                  margin: EdgeInsets.all(8.0),
+                  children: [
+                    Text(
+                      'Easy to use',
+                      style: Theme.of(context).textTheme.headlineLarge,
+                    ),
+                    Text(
+                      'ExpidusOS uses modern design technologies to adapt its layout between mobile and desktop devices. This means you can enjoy the same experience on your phone and desktop with ExpidusOS.',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

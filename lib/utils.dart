@@ -4,7 +4,8 @@ enum AutoScaler {
   small(maxWidth: 639.9),
   medium(minWidth: 640.0, maxWidth: 959.9),
   large(minWidth: 960.0),
-  ltLarge(maxWidth: 959.0);
+  ltMedium(maxWidth: 639.9),
+  ltLarge(maxWidth: 959.9);
 
   const AutoScaler({ this.minWidth = 0.0, this.maxWidth = 0.0 });
 
