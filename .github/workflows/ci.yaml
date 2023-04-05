@@ -4,6 +4,9 @@ on: push
 permissions:
   contents: write
 
+concurrency:
+  group: ${{ github.workflow }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
