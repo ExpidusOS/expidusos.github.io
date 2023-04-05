@@ -19,9 +19,6 @@ class _HomePageState extends State<HomePage> {
     var isNotLarge = AutoScaler.ltLarge.fits(MediaQuery.of(context));
     var cardWidth = MediaQuery.of(context).size.width / 1.6;
 
-    print(isNotLarge);
-    print(cardWidth);
-
     var cards = <Widget>[
       SimpleCard(
         margin: EdgeInsets.all(8.0),
