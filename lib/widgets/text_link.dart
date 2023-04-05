@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TextLink extends StatelessWidget {
-  TextLink(Uri this.uri, String? this.text, {Key? key, this.style = null}) : super(key: key);
+  TextLink(this.uri, this.text, {Key? key, this.style = null}) : super(key: key);
 
   final String? text;
   final TextStyle? style;

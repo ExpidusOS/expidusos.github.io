@@ -46,7 +46,7 @@ class _DefaultLayoutState extends State<DefaultLayout> {
             ))).values.toList(),
         ),
       ) : null,
-      body: widget.child,
+      body: widget.child != null ? Center(child: widget.child) : null,
     );
   }
 }
