@@ -35,6 +35,7 @@ jobs:
           rm -rf build
           git add .
           git commit -a -m "Deploy ${{ github.sha }}"
+          git pull --rebase
       - if: ${{ github.event_name == 'push' }}
         name: Commit
         uses: ad-m/github-push-action@master
