@@ -18,6 +18,7 @@ class DefaultLayout extends StatefulWidget {
 class _DefaultLayoutState extends State<DefaultLayout> {
   @override
   Widget build(BuildContext context) {
+    final currentRoute = ModalRoute.of(context) == null ? '/' : ModalRoute.of(context)!.settings.name;
     var isNotLarge = AutoScaler.ltLarge.fits(MediaQuery.of(context));
     return Scaffold(
       appBar: AppBar(
@@ -26,8 +27,15 @@ class _DefaultLayoutState extends State<DefaultLayout> {
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: TextButton(
+              style: currentRoute == k ?
+                (Theme.of(context).textButtonTheme.style ?? const ButtonStyle()).copyWith(
+                  foregroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.onBackground),
+                  backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.secondaryContainer),
+                ) : null,
               onPressed: () {
-                Navigator.of(context).pushNamed(k);
+                if (currentRoute != k) {
+                  Navigator.of(context).pushNamed(k);
+                }
               },
               child: Text(v),
             ),
@@ -38,8 +46,13 @@ class _DefaultLayoutState extends State<DefaultLayout> {
           padding: EdgeInsets.zero,
           children: _navItems.map((k, v) => MapEntry(k,
             ListTile(
+              selected: currentRoute == k,
+              selectedColor: Theme.of(context).colorScheme.onBackground,
+              selectedTileColor: Theme.of(context).colorScheme.secondaryContainer,
               onTap: () {
-                Navigator.of(context).pushNamed(k);
+                if (currentRoute != k) {
+                  Navigator.of(context).pushNamed(k);
+                }
               },
               title: Text(v),
             ))).values.toList(),
