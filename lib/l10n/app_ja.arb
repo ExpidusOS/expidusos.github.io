@@ -1,3 +1,6 @@
 {
-  "websiteTitle": "ExpidusOS"
+  "websiteTitle": "ExpidusOS",
+  "pageHome": "Home",
+  "pageDownload": "Download",
+  "pageApplications": "Applications"
 }
