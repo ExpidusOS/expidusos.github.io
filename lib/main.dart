@@ -16,8 +16,9 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       routes: {
-        '/': (ctx) => HomePage(),
-        '/download': (ctx) => DownloadPage(),
+        '/': (ctx) => const HomePage(),
+        '/download': (ctx) => const DownloadPage(),
+        '/applications': (ctx) => const ApplicationsPage(),
       },
     );
 }

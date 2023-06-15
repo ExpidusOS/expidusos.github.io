@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:libtokyo_flutter/libtokyo.dart';
 import 'package:expidus_website/utils.dart' show AutoScaler;
 
 final _navItems = {
   '/': 'Home',
   '/download': 'Download',
+  '/applications': 'Applications'
 };
 
 class DefaultLayout extends StatefulWidget {
