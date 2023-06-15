@@ -24,6 +24,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  flutter_web_plugins:
+    sdk: flutter
 
 dependency_overrides:
   libtokyo:

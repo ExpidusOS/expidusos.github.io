@@ -36,6 +36,7 @@ jobs:
           rm -rf .dart_tool assets canvaskit icons libtokyo
           mv build/web/* .
           rm -rf build
+          ln -s index.html 404.html
           git add .
           git commit -a -m "Deploy ${{ github.sha }}"
           git pull --rebase
