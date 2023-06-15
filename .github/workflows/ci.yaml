@@ -33,7 +33,7 @@ jobs:
           git config --global user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
           rm pubspec.lock
           git checkout gh-pages
-          rm -rf dart_tool assets canvaskit icons
+          rm -rf .dart_tool assets canvaskit icons libtokyo
           mv build/web/* .
           rm -rf build
           git add .
