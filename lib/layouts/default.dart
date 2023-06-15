@@ -7,9 +7,8 @@ final _navItems = {
 };
 
 class DefaultLayout extends StatefulWidget {
-  DefaultLayout({Key? key, required this.themeNotifier, this.child}) : super(key: key);
+  const DefaultLayout({ super.key, this.child });
 
-  final ValueNotifier<ThemeMode> themeNotifier;
   final Widget? child;
 
   @override
@@ -25,7 +24,7 @@ class _DefaultLayoutState extends State<DefaultLayout> {
         title: const Text('ExpidusOS'),
         actions: isNotLarge ? null : _navItems.map((k, v) => MapEntry(k,
           Padding(
-            padding: EdgeInsets.all(4.0),
+            padding: const EdgeInsets.all(4.0),
             child: TextButton(
               onPressed: () {
                 Navigator.of(context).pushNamed(k);

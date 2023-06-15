@@ -5,9 +5,7 @@ import 'package:expidus_website/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key, required this.themeNotifier}) : super(key: key);
-
-  final ValueNotifier<ThemeMode> themeNotifier;
+  const HomePage({ super.key });
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -17,13 +15,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) =>
     DefaultLayout(
-      themeNotifier: widget.themeNotifier,
       child: ListView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         children: [
           Container(
             height: MediaQuery.of(context).size.height / 2.95,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: AssetImage('assets/img/expidus.jpg'),
