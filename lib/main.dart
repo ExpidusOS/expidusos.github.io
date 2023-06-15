@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) =>
     TokyoApp(
-      title: 'ExpidusOS',
+      onGenerateTitle: (context) => AppLocalizations.of(context)!.websiteTitle,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       routes: {

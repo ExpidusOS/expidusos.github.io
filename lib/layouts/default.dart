@@ -1,11 +1,6 @@
 import 'package:libtokyo_flutter/libtokyo.dart';
 import 'package:expidus_website/utils.dart' show AutoScaler;
-
-final _navItems = {
-  '/': 'Home',
-  '/download': 'Download',
-  '/applications': 'Applications'
-};
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DefaultLayout extends StatefulWidget {
   const DefaultLayout({ super.key, this.child });
@@ -21,9 +16,15 @@ class _DefaultLayoutState extends State<DefaultLayout> {
   Widget build(BuildContext context) {
     final currentRoute = ModalRoute.of(context) == null ? '/' : ModalRoute.of(context)!.settings.name;
     var isNotLarge = AutoScaler.ltLarge.fits(MediaQuery.of(context));
+
+    final _navItems = {
+      '/': AppLocalizations.of(context)!.pageHome,
+      '/download': AppLocalizations.of(context)!.pageDownload,
+      '/applications': AppLocalizations.of(context)!.pageApplications
+    };
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ExpidusOS'),
+        title: Text(AppLocalizations.of(context)!.websiteTitle),
         actions: isNotLarge ? null : _navItems.map((k, v) => MapEntry(k,
           Padding(
             padding: const EdgeInsets.all(4.0),
