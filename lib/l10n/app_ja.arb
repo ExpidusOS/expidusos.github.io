@@ -1,3 +1,6 @@
 {
-  "websiteTitle": "ExpidusOS"
+  "websiteTitle": "ExpidusOS",
+  "pageHome": "ホーム",
+  "pageDownload": "ダウンロード",
+  "pageApplications": "アプリ"
 }
