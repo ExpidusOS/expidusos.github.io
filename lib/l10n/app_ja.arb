@@ -15,5 +15,11 @@
   "homeSectionFeaturesCardFOSSTitle": "無料でオープンソース",
   "homeSectionFeaturesCardFOSSContent": "ExpidusOSのソースコードはオープンソースであり、オペレーティングシステム自体は無料です。 このウェブサイトからダウンロードすることも、自分でビルドすることもできます。ExpidusOSは、Linux、Zig、Flutter、Nixなどのオープンソース技術も使用しています。",
   "homeSectionFeaturesCardEasyUseCardTitle": "簡単に使えます",
-  "homeSectionFeaturesCardEasyUseCardContent": "ExpidusOSは、モバイルとデスクトップデバイス間のレイアウトを調整するために最新の設計技術を使用しています。 つまり、ExpidusOSを使用すると、携帯電話とデスクトップで同じ体験を楽しむことができます。"
+  "homeSectionFeaturesCardEasyUseCardContent": "ExpidusOSは、モバイルとデスクトップデバイス間のレイアウトを調整するために最新の設計技術を使用しています。 つまり、ExpidusOSを使用すると、携帯電話とデスクトップで同じ体験を楽しむことができます。",
+  "applicationsTitle": "Applications",
+  "applicationsSubtitle": "A catalog of first party applications designed for ExpidusOS.",
+  "applicationsFileManagerTitle": "File Manager",
+  "applicationsFileManagerSubtitle": "A cross-platform File Manager.",
+  "applicationsKeebieTitle": "Keebie",
+  "applicationsKeebieSubtitle": "A cross-platform on-screen keyboard."
 }
