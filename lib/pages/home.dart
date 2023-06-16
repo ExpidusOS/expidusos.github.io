@@ -128,7 +128,7 @@ class HomePage extends StatelessWidget {
                           ),
                         ],
                       )
-                    ].map((child) => Expanded(child: child)).toList();
+                    ];
 
                     if (gridDelegate != null) {
                       final size = MediaQuery.sizeOf(context);
