@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
 
   Widget _buildMainContent(BuildContext context, {
     required double horizPadding,
-    required SliverGridDelegate gridDelegate
+    SliverGridDelegate? gridDelegate,
   }) =>
     SingleChildScrollView(
       child: Column(
@@ -54,82 +54,100 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                GridView(
-                  gridDelegate: gridDelegate,
-                  shrinkWrap: true,
-                  children: [
-                    SimpleCard(
-                      margin: const EdgeInsets.all(8.0),
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.homeSectionFeaturesCardCrossPlatformTitle,
-                          style: Theme.of(context).textTheme.headlineLarge,
-                        ),
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: AppLocalizations.of(context)!.homeSectionFeaturesCardCrossPlatformContent1,
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              ),
-                              TextSpan(
-                                text: AppLocalizations.of(context)!.homeSectionFeaturesCardCrossPlatformContent2,
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              ),
-                              TextSpan(
-                                text: AppLocalizations.of(context)!.homeSectionFeaturesCardCrossPlatformContent3,
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              ),
-                              WidgetSpan(
-                                alignment: PlaceholderAlignment.baseline,
-                                baseline: TextBaseline.alphabetic,
-                                child: TextLink(
-                                  Uri.parse('https://wiki.expidusos.com/devices'),
-                                  AppLocalizations.of(context)!.homeSectionFeaturesCardCrossPlatformContent4,
-                                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                    color: Theme.of(context).colorScheme.primary,
-                                    fontWeight: FontWeight.bold,
-                                    decoration: TextDecoration.underline,
+                Builder(
+                  builder: (context) {
+                    final cards = [
+                      SimpleCard(
+                        margin: const EdgeInsets.all(8.0),
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.homeSectionFeaturesCardCrossPlatformTitle,
+                            style: Theme.of(context).textTheme.headlineLarge,
+                          ),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: AppLocalizations.of(context)!.homeSectionFeaturesCardCrossPlatformContent1,
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
+                                TextSpan(
+                                  text: AppLocalizations.of(context)!.homeSectionFeaturesCardCrossPlatformContent2,
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
+                                TextSpan(
+                                  text: AppLocalizations.of(context)!.homeSectionFeaturesCardCrossPlatformContent3,
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
+                                WidgetSpan(
+                                  alignment: PlaceholderAlignment.baseline,
+                                  baseline: TextBaseline.alphabetic,
+                                  child: TextLink(
+                                    Uri.parse('https://wiki.expidusos.com/devices'),
+                                    AppLocalizations.of(context)!.homeSectionFeaturesCardCrossPlatformContent4,
+                                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                      color: Theme.of(context).colorScheme.primary,
+                                      fontWeight: FontWeight.bold,
+                                      decoration: TextDecoration.underline,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              TextSpan(
-                                text: AppLocalizations.of(context)!.homeSectionFeaturesCardCrossPlatformContent5,
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              ),
-                            ],
+                                TextSpan(
+                                  text: AppLocalizations.of(context)!.homeSectionFeaturesCardCrossPlatformContent5,
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
+                              ],
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SimpleCard(
+                        margin: const EdgeInsets.all(8.0),
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.homeSectionFeaturesCardFOSSTitle,
+                            style: Theme.of(context).textTheme.headlineLarge,
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!.homeSectionFeaturesCardFOSSContent,
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          )
+                        ],
+                      ),
+                      SimpleCard(
+                        margin: const EdgeInsets.all(8.0),
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.homeSectionFeaturesCardEasyUseCardTitle,
+                            style: Theme.of(context).textTheme.headlineLarge,
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!.homeSectionFeaturesCardEasyUseCardContent,
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
+                        ],
+                      )
+                    ].map((child) => Expanded(child: child)).toList();
+
+                    if (gridDelegate != null) {
+                      final size = MediaQuery.sizeOf(context);
+                      return SizedBox(
+                        width: size.width,
+                        height: size.height / 2,
+                        child: GridView(
+                          gridDelegate: gridDelegate,
+                          shrinkWrap: true,
+                          children: cards,
                         ),
-                      ],
-                    ),
-                    SimpleCard(
-                      margin: const EdgeInsets.all(8.0),
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.homeSectionFeaturesCardFOSSTitle,
-                          style: Theme.of(context).textTheme.headlineLarge,
-                        ),
-                        Text(
-                          AppLocalizations.of(context)!.homeSectionFeaturesCardFOSSContent,
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        )
-                      ],
-                    ),
-                    SimpleCard(
-                      margin: const EdgeInsets.all(8.0),
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.homeSectionFeaturesCardEasyUseCardTitle,
-                          style: Theme.of(context).textTheme.headlineLarge,
-                        ),
-                        Text(
-                          AppLocalizations.of(context)!.homeSectionFeaturesCardEasyUseCardContent,
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                      ],
-                    )
-                  ].map((child) => Expanded(child: child)).toList(),
+                      );
+                    }
+
+                    return ListView(
+                      shrinkWrap: true,
+                      children: cards,
+                    );
+                  },
                 ),
               ],
             ),
@@ -150,10 +168,6 @@ class HomePage extends StatelessWidget {
               builder: (_) => _buildMainContent(
                 context,
                 horizPadding: 8.0,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1,
-                  childAspectRatio: 1.3,
-                )
               ),
             ),
             Breakpoints.large: SlotLayout.from(
