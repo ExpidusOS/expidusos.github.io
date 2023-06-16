@@ -13,9 +13,9 @@ class SimpleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) =>
     Card(
-      margin: this.margin,
+      margin: margin,
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,

@@ -131,15 +131,10 @@ class HomePage extends StatelessWidget {
                     ];
 
                     if (gridDelegate != null) {
-                      final size = MediaQuery.sizeOf(context);
-                      return SizedBox(
-                        width: size.width,
-                        height: size.height / 2,
-                        child: GridView(
-                          gridDelegate: gridDelegate,
-                          shrinkWrap: true,
-                          children: cards,
-                        ),
+                      return GridView(
+                        gridDelegate: gridDelegate,
+                        shrinkWrap: true,
+                        children: cards,
                       );
                     }
 

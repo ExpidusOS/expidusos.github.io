@@ -15,5 +15,11 @@
   "homeSectionFeaturesCardFOSSTitle": "Free & Open Source",
   "homeSectionFeaturesCardFOSSContent": "The source code of ExpidusOS is open source and the operating system itself is free. You can download it from this website or build it yourself. ExpidusOS also uses open source technologies like Linux, Zig, Flutter, and Nix.",
   "homeSectionFeaturesCardEasyUseCardTitle": "Easy to use",
-  "homeSectionFeaturesCardEasyUseCardContent": "ExpidusOS uses modern design technologies to adapt its layout between mobile and desktop devices. This means you can enjoy the same experience on your phone and desktop with ExpidusOS."
+  "homeSectionFeaturesCardEasyUseCardContent": "ExpidusOS uses modern design technologies to adapt its layout between mobile and desktop devices. This means you can enjoy the same experience on your phone and desktop with ExpidusOS.",
+  "applicationsTitle": "Applications",
+  "applicationsSubtitle": "A catalog of first party applications designed for ExpidusOS.",
+  "applicationsFileManagerTitle": "File Manager",
+  "applicationsFileManagerSubtitle": "A cross-platform File Manager.",
+  "applicationsKeebieTitle": "Keebie",
+  "applicationsKeebieSubtitle": "A cross-platform on-screen keyboard."
 }
