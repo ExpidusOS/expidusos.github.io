@@ -152,6 +152,7 @@ class HomePage extends StatelessWidget {
                 horizPadding: 8.0,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 1,
+                  childAspectRatio: 1.3,
                 )
               ),
             ),
@@ -162,6 +163,7 @@ class HomePage extends StatelessWidget {
                 horizPadding: MediaQuery.sizeOf(context).width / 4,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
+                  childAspectRatio: 1 / .4,
                 ),
               ),
             ),
