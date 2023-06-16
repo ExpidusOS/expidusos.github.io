@@ -12,6 +12,8 @@ class DefaultLayout extends StatefulWidget {
 }
 
 class _DefaultLayoutState extends State<DefaultLayout> {
+  final _focusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     final currentRoute = ModalRoute.of(context) == null ? '/' : ModalRoute.of(context)!.settings.name;
@@ -22,45 +24,49 @@ class _DefaultLayoutState extends State<DefaultLayout> {
       '/download': AppLocalizations.of(context)!.pageDownload,
       '/applications': AppLocalizations.of(context)!.pageApplications
     };
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.websiteTitle),
-        actions: isNotLarge ? null : _navItems.map((k, v) => MapEntry(k,
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: TextButton(
-              style: currentRoute == k ?
-                (Theme.of(context).textButtonTheme.style ?? const ButtonStyle()).copyWith(
-                  foregroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.onBackground),
-                  backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.secondaryContainer),
-                ) : null,
-              onPressed: () {
-                if (currentRoute != k) {
-                  Navigator.of(context).pushNamed(k);
-                }
-              },
-              child: Text(v),
-            ),
-          ))).values.toList(),
-      ),
-      drawer: isNotLarge ? Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: _navItems.map((k, v) => MapEntry(k,
-            ListTile(
-              selected: currentRoute == k,
-              selectedColor: Theme.of(context).colorScheme.onBackground,
-              selectedTileColor: Theme.of(context).colorScheme.secondaryContainer,
-              onTap: () {
-                if (currentRoute != k) {
-                  Navigator.of(context).pushNamed(k);
-                }
-              },
-              title: Text(v),
-            ))).values.toList(),
+    return SelectableRegion(
+      focusNode: _focusNode,
+      selectionControls: MaterialTextSelectionControls(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(AppLocalizations.of(context)!.websiteTitle),
+          actions: isNotLarge ? null : _navItems.map((k, v) => MapEntry(k,
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: TextButton(
+                  style: currentRoute == k ?
+                  (Theme.of(context).textButtonTheme.style ?? const ButtonStyle()).copyWith(
+                    foregroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.onBackground),
+                    backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.secondaryContainer),
+                  ) : null,
+                  onPressed: () {
+                    if (currentRoute != k) {
+                      Navigator.of(context).pushNamed(k);
+                    }
+                  },
+                  child: Text(v),
+                ),
+              ))).values.toList(),
         ),
-      ) : null,
-      body: widget.child != null ? Center(child: widget.child) : null,
+        drawer: isNotLarge ? Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: _navItems.map((k, v) => MapEntry(k,
+                ListTile(
+                  selected: currentRoute == k,
+                  selectedColor: Theme.of(context).colorScheme.onBackground,
+                  selectedTileColor: Theme.of(context).colorScheme.secondaryContainer,
+                  onTap: () {
+                    if (currentRoute != k) {
+                      Navigator.of(context).pushNamed(k);
+                    }
+                  },
+                  title: Text(v),
+                ))).values.toList(),
+          ),
+        ) : null,
+        body: widget.child != null ? Center(child: widget.child) : null,
+      ),
     );
   }
 }
