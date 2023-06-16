@@ -4,7 +4,7 @@ publish_to: 'none'
 version: 0.1.0+1
 
 environment:
-  sdk: '>=2.18.4 <3.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
   flutter:
@@ -26,6 +26,7 @@ dependencies:
   intl: any
   flutter_web_plugins:
     sdk: flutter
+  flutter_adaptive_scaffold: ^0.1.5
 
 dependency_overrides:
   libtokyo:
