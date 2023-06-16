@@ -2,5 +2,18 @@
   "websiteTitle": "ExpidusOS",
   "pageHome": "ホーム",
   "pageDownload": "ダウンロード",
-  "pageApplications": "アプリ"
+  "pageApplications": "アプリ",
+  "homeHeadingCardTitle": "ExpidusOSの紹介",
+  "homeHeadingCardBlurb": "モバイルおよびデスクトップデバイス用の最新のオペレーティングシステム。",
+  "homeSectionFeaturesTitle": "特性",
+  "homeSectionFeaturesCardCrossPlatformTitle": "クロスプラットフォーム",
+  "homeSectionFeaturesCardCrossPlatformContent1": "ノートパソコンやデスクトップだけでなく、携帯電話やタブレットでExpidusOSを使用できます。 ",
+  "homeSectionFeaturesCardCrossPlatformContent2": "私たちは、デバイスの広い範囲をサポートすることを計画しています, でも、ハンドヘルドゲーム機. ",
+  "homeSectionFeaturesCardCrossPlatformContent3": "こちらを",
+  "homeSectionFeaturesCardCrossPlatformContent4": "ウィキ",
+  "homeSectionFeaturesCardCrossPlatformContent5": "から現在サポートされている機器と今後の対応を予定しております。",
+  "homeSectionFeaturesCardFOSSTitle": "無料でオープンソース",
+  "homeSectionFeaturesCardFOSSContent": "ExpidusOSのソースコードはオープンソースであり、オペレーティングシステム自体は無料です。 このウェブサイトからダウンロードすることも、自分でビルドすることもできます。ExpidusOSは、Linux、Zig、Flutter、Nixなどのオープンソース技術も使用しています。",
+  "homeSectionFeaturesCardEasyUseCardTitle": "簡単に使えます",
+  "homeSectionFeaturesCardEasyUseCardContent": "ExpidusOSは、モバイルとデスクトップデバイス間のレイアウトを調整するために最新の設計技術を使用しています。 つまり、ExpidusOSを使用すると、携帯電話とデスクトップで同じ体験を楽しむことができます。"
 }
