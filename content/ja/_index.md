@@ -9,14 +9,17 @@ paige:
     #paige-collections,
     #paige-sections,
     #paige-pages {
-        display: none;
+      display: none;
     }
-    #paige-title {
-        font-size: 4rem;
-        padding-left: 4em;
-        padding-right: 4em;
-        padding-bottom: 10px;
-        padding-top: 10px;
+    @media (min-width: 1024px) #paige-title {
+      font-size: 4rem;
+      padding-left: 4em;
+      padding-right: 4em;
+      padding-bottom: 10px;
+      padding-top: 10px;
+    }
+    @media (max-width: 1024px) #paige-title {
+      font-size: 2rem;
     }
 ---
 
