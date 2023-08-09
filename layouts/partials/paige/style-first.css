@@ -15,3 +15,18 @@
 .paige-summary {
     display: none;
 }
+
+#paige-title {
+  font-size: 4rem;
+  padding-left: 4em;
+  padding-right: 4em;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+}
+
+@media screen and (max-width: 1024px) {
+  #paige-title {
+    font-size: 3rem;
+    padding: 0 0 0 0;
+  }
+}

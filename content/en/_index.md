@@ -11,19 +11,6 @@ paige:
     #paige-pages {
       display: none;
     }
-    #paige-title {
-      font-size: 4rem;
-      padding-left: 4em;
-      padding-right: 4em;
-      padding-bottom: 10px;
-      padding-top: 10px;
-    }
-    @media screen and (max-width: 1024px) {
-      #paige-title {
-        font-size: 3rem;
-        padding: 0 0 0 0;
-      }
-    }
 ---
 
 <div class="container-fluid py-3">
@@ -62,13 +49,16 @@ paige:
   </div>
 </div>
 
-<p class="text-center">
-  <a class="lead" href="/download">Install it now.</a>
-</p>
-
-<div class="column-gap-3 d-flex display-6 justify-content-center mb-3">
-   {{< paige/icon class="bi bi-twitter" name="Twitter" url="https://twitter.com/ExpidusOS" >}}
-   {{< paige/icon class="bi bi-discord" name="Discord" url="https://discord.gg/3kPk9ZU6Da" >}}
-   {{< paige/icon class="bi bi-reddit" name="Reddit" url="https://reddit.com/r/ExpidusOS" >}}
-   {{< paige/icon class="bi bi-github" name="GitHub" url="https://github.com/ExpidusOS" >}}
+<div class="container-fluid py-3">
+  <div class="justify-content-center row">
+    <div class="col col-auto col-lg-7 px-0">
+      <p class="lead text-center">
+        <a class="lead btn btn-primary" href="/download">Install it now</a>
+        <b>Or</b>
+        <a class="lead btn btn-primary" href="https://demo.expidusos.com">Try the demo</a>
+      </p>
+    </div>
+  </div>
 </div>
+
+{{< footer >}}
