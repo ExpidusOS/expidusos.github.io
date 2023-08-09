@@ -1,5 +1,6 @@
 baseURL = 'https://expidusos.com/'
 copyright = '© Midstall Software & Contributors'
+defaultContentLanguage = 'en'
 languageCode = 'en-us'
 title = 'ExpidusOS'
 titlecasestyle = 'Go'
@@ -15,6 +16,9 @@ unsafe = true
 
 [markup.highlight]
 noClasses = false
+
+[languages.en]
+languageName = 'English'
 
 [[languages.en.menu.main]]
 identifier = "home"
