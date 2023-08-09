@@ -1,0 +1,26 @@
+languageName = '日本語'
+contentDir = 'content'
+
+[[menu.main]]
+identifier = 'home'
+name = 'ホーム'
+url = '/ja'
+weight = 10
+
+[[menu.main]]
+identifier = 'download'
+name = 'ダウンロード'
+url = '/ja/download'
+weight = 20
+
+[[menu.main]]
+identifier = 'about'
+name = '関し'
+url = '/ja/about'
+weight = 30
+
+[[menu.main]]
+identifier = 'applications'
+name = 'アプリケーション'
+url = '/ja/applications'
+weight = 40

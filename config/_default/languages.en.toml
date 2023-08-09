@@ -1,0 +1,25 @@
+languageName = 'English'
+
+[[menu.main]]
+identifier = 'home'
+name = 'Home'
+url = '/'
+weight = 10
+
+[[menu.main]]
+identifier = 'download'
+name = 'Download'
+url = '/download'
+weight = 20
+
+[[menu.main]]
+identifier = 'about'
+name = 'About'
+url = '/about'
+weight = 30
+
+[[menu.main]]
+identifier = 'applications'
+name = 'Applications'
+url = '/applications'
+weight = 40
