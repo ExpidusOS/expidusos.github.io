@@ -1,5 +1,5 @@
 ---
-title: Modern Mobile & Desktop Computing
+title: ExpidusOS
 paige:
   rss:
     hide_page: true
