@@ -1,0 +1,34 @@
+baseURL = 'https://expidusos.com/'
+copyright = '© Midstall Software & Contributors'
+languageCode = 'en-us'
+title = 'ExpidusOS'
+titlecasestyle = 'Go'
+
+[[module.imports]]
+path = "github.com/willfaught/paige"
+
+[paige]
+color = "#24283b"
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[markup.highlight]
+noClasses = false
+
+[[languages.en.menu.main]]
+identifier = "home"
+name = "Home"
+url = "/"
+weight = 10
+
+[[languages.en.menu.main]]
+identifier = "download"
+name = "Download"
+url = "/download"
+weight = 20
+
+[[languages.en.menu.main]]
+identifier = "about"
+name = "About"
+url = "/about"
