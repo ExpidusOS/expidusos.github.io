@@ -11,15 +11,18 @@ paige:
     #paige-pages {
       display: none;
     }
-    @media (min-width: 1024px) #paige-title {
+    #paige-title {
       font-size: 4rem;
       padding-left: 4em;
       padding-right: 4em;
       padding-bottom: 10px;
       padding-top: 10px;
     }
-    @media (max-width: 1024px) #paige-title {
-      font-size: 2rem;
+    @media screen and (max-width: 1024px) {
+      #paige-title {
+        font-size: 3rem;
+        padding: 0 0 0 0;
+      }
     }
 ---
 
