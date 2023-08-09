@@ -4,7 +4,7 @@ contentDir = 'content/en'
 [[menu.main]]
 identifier = 'home'
 name = 'Home'
-url = '/'
+url = '/en/'
 weight = 10
 
 [[menu.main]]
