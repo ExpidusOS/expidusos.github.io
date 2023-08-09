@@ -1,4 +1,5 @@
 languageName = 'English'
+contentDir = 'content/en'
 
 [[menu.main]]
 identifier = 'home'
@@ -9,17 +10,17 @@ weight = 10
 [[menu.main]]
 identifier = 'download'
 name = 'Download'
-url = '/download'
+url = '/en/download'
 weight = 20
 
 [[menu.main]]
 identifier = 'about'
 name = 'About'
-url = '/about'
+url = '/en/about'
 weight = 30
 
 [[menu.main]]
 identifier = 'applications'
 name = 'Applications'
-url = '/applications'
+url = '/en/applications'
 weight = 40

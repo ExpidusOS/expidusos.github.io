@@ -1,10 +1,10 @@
 languageName = '日本語'
-contentDir = 'content'
+contentDir = 'content/ja'
 
 [[menu.main]]
 identifier = 'home'
 name = 'ホーム'
-url = '/ja'
+url = '/ja/'
 weight = 10
 
 [[menu.main]]
