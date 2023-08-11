@@ -48,10 +48,10 @@ description: ExpidusOS is a desktop and mobile operating system from Midstall So
         Here is a list of the various pieces of software and tech we rely on.
       </p>
       <ul class="text-center list-group py-2">
-        <li class="list-group-item border-0"><a href="https://flutter.dev">Flutter</a></li>
-        <li class="list-group-item border-0"><a href="https://kernel.org">Linux</a></li>
-        <li class="list-group-item border-0"><a href="https://nixos.org">NixOS</a></li>
-        <li class="list-group-item border-0"><a href="https://qemu.org">QEMU</a></li>
+        <li class="list-group-item border-0"><a class="btn btn-link text-decoration-none" href="https://flutter.dev">Flutter</a></li>
+        <li class="list-group-item border-0"><a class="btn btn-link text-decoration-none" href="https://kernel.org">Linux</a></li>
+        <li class="list-group-item border-0"><a class="btn btn-link text-decoration-none" href="https://nixos.org">NixOS</a></li>
+        <li class="list-group-item border-0"><a class="btn btn-link text-decoration-none" href="https://qemu.org">QEMU</a></li>
       </ul>
     </div>
   </div>
