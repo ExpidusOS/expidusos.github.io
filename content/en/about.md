@@ -47,11 +47,11 @@ description: ExpidusOS is a desktop and mobile operating system from Midstall So
         ExpidusOS is an open source project and relies on the effort of many others.
         Here is a list of the various pieces of software and tech we rely on.
       </p>
-      <ul class="text-center list-group">
-        <li class="list-group-item"><a href="https://flutter.dev">Flutter</a></li>
-        <li class="list-group-item"><a href="https://kernel.org">Linux</a></li>
-        <li class="list-group-item"><a href="https://nixos.org">NixOS</a></li>
-        <li class="list-group-item"><a href="https://qemu.org">QEMU</a></li>
+      <ul class="text-center list-group py-2">
+        <li class="list-group-item border-0"><a href="https://flutter.dev">Flutter</a></li>
+        <li class="list-group-item border-0"><a href="https://kernel.org">Linux</a></li>
+        <li class="list-group-item border-0"><a href="https://nixos.org">NixOS</a></li>
+        <li class="list-group-item border-0"><a href="https://qemu.org">QEMU</a></li>
       </ul>
     </div>
   </div>
@@ -65,8 +65,8 @@ description: ExpidusOS is a desktop and mobile operating system from Midstall So
         As ExpidusOS is a free and open source project, we rely on the community to help fund the project.
         The individuals, organizations, and others listed here are our top contributors which help this project.
       </p>
-      <ul class="text-center list-group">
-        <li class="list-group-item"><b>None</b></li>
+      <ul class="text-center list-group py-2">
+        <li class="list-group-item border-0"><b>None</b></li>
       </ul>
       <p class="text-center">
         <a href="https://opencollective.com/expidusos" class="btn btn-primary mx-auto">Sponsor us on Open Collective</a>
