@@ -74,3 +74,16 @@ description: ExpidusOS is a desktop and mobile operating system from Midstall So
     </div>
   </div>
 </div>
+
+<div class="container-fluid py-3">
+  <div class="justify-content-center row">
+    <div class="col col-auto col-lg-7 px-0">
+      <h5 class="display-6 fw-bold py-3 text-center">Interested in Midstall?</h5>
+      <p class="text-center">
+        <a href="https://midstall.com" class="btn btn-primary mx-auto">Check us out</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+{{< footer >}}
