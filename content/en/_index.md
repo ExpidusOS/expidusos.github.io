@@ -53,7 +53,7 @@ paige:
   <div class="justify-content-center row">
     <div class="col col-auto col-lg-7 px-0">
       <p class="lead text-center">
-        <a class="lead btn btn-primary" href="/download">Install it now</a>
+        <a class="lead btn btn-primary" href="/en/download">Install it now</a>
         Or
         <a class="lead btn btn-primary" href="https://demo.expidusos.com">Try the demo</a>
       </p>
