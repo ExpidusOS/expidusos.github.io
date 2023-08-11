@@ -19,7 +19,7 @@ description: ExpidusOS is a desktop and mobile operating system from Midstall So
     <div class="col col-auto col-lg-7 px-0">
       <h5 class="display-5 fw-bold py-3 text-center">Why</h5>
       <p class="lead text-center">
-        Traditionally, application have to be redesigned to run on mobile and desktop devices.
+        Traditionally, applications have to be redesigned to run on mobile and desktop devices.
         With ExpidusOS, it is possible to design a single version of the application to run on mobile and desktop devices.
         This has the benefit of saving time and resources for developers while also maintaining a coherent experience.
       </p>
