@@ -24,3 +24,9 @@ identifier = 'applications'
 name = 'Applications'
 url = '/en/applications'
 weight = 40
+
+[[menu.main]]
+identifier = 'wiki'
+name = 'Wiki'
+url = 'https://wiki.expidusos.com'
+weight = 50
