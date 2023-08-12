@@ -5,6 +5,7 @@ defaultContentLanguageInSubdir = true
 languageCode = 'en-us'
 title = 'ExpidusOS'
 titlecasestyle = 'Go'
+enableRobotsTXT = true
 
 [[module.imports]]
 path = 'github.com/willfaught/paige'
