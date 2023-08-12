@@ -1,5 +1,6 @@
 ---
 title: ExpidusOS
+description: The future of mobile and desktop operating systems. ExpidusOS is a cross platform, secure, and private operating system developed by Midstall Software.
 paige:
   rss:
     hide_page: true
