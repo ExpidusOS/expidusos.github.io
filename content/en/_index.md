@@ -20,7 +20,7 @@ paige:
       <p>{{% paige/image alt="Landscape" breakpoints=true class="object-fit-cover rounded-4" fetchpriority="high" height="20rem" loading="eager" src="/expidus-hero1.webp" width="100%" %}}</p>
       <h2 class="display-5 fw-bold py-3 text-center">Easy to use</h2>
       <p class="lead text-center">
-        ExpidusOS is the future of mobile and desktop operating systems. By design, it is able to run on phones, tablets, laptops, and desktops. It is the first truely cross-platform, cross-device operating system for the modern age.
+        ExpidusOS is the future of mobile and desktop operating systems. By design, it is able to run on phones, tablets, laptops, and desktops. It is the first truly cross-platform, cross-device operating system for the modern age.
       </p>
     </div>
   </div>
